@@ -1,5 +1,12 @@
+import { Routes, Route } from "react-router-dom";
+import Layout from "@layouts/Layout";
+
 function App() {
-  return <></>;
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}></Route>
+    </Routes>
+  );
 }
 
 export default App;
