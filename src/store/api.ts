@@ -1,11 +1,12 @@
-import { IAuction } from "@/interfaces/auction";
-import { ILocation } from "@/interfaces/location";
-import { IPort } from "@/interfaces/port";
-import { IResponse } from "@/interfaces/response";
-import { IState } from "@/interfaces/state";
-import { IUser } from "@/interfaces/user";
+import {
+  IUser,
+  IAuction,
+  ILocation,
+  IPort,
+  IResponse,
+  IState,
+} from "@interfaces/index";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
 export const strapiApi = createApi({
   reducerPath: "strapiApi",
   baseQuery: fetchBaseQuery({
