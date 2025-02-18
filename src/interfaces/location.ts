@@ -1,12 +1,12 @@
-import { Auction } from "./auction";
-import { Entity } from "./entity";
-import { Port } from "./port";
-import { State } from "./state";
+import { IAuction } from "./auction";
+import { IEntity } from "./entity";
+import { IPort } from "./port";
+import { IState } from "./state";
 
-export interface Location extends Entity {
+export interface ILocation extends IEntity {
   name: string;
   price: number;
-  port: Port;
-  state: State;
-  auctions: Auction[];
+  port: IPort;
+  state: IState;
+  auctions: IAuction[];
 }

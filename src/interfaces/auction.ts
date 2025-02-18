@@ -1,7 +1,7 @@
-import { Entity } from "./entity";
-import { Location } from "./location";
+import { IEntity } from "./entity";
+import { ILocation } from "./location";
 
-export interface Auction extends Entity {
+export interface IAuction extends IEntity {
   name: string;
-  locations: Location[];
+  locations: ILocation[];
 }

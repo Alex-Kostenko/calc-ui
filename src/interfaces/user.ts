@@ -1,7 +1,7 @@
-import { Entity } from "./entity";
+import { IEntity } from "./entity";
 import { Role } from "./role";
 
-export interface User extends Entity {
+export interface IUser extends IEntity {
   name: string;
   lastname: string;
   email: string;

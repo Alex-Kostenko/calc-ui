@@ -1,4 +1,4 @@
-export interface Entity {
+export interface IEntity {
   documentId: string;
   id: number;
   createdAt: Date;

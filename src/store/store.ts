@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import { setupListeners } from "@reduxjs/toolkit/query";
 import { strapiApi } from "./api";
+import { totalSlice } from "./slices/total.slice";
 
 export const store = configureStore({
   reducer: {
+    total: totalSlice.reducer,
     [strapiApi.reducerPath]: strapiApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

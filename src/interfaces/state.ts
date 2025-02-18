@@ -1,10 +1,10 @@
-import { Entity } from "./entity";
-import { Location } from "./location";
-import { Port } from "./port";
+import { IEntity } from "./entity";
+import { ILocation } from "./location";
+import { IPort } from "./port";
 
-export interface State extends Entity {
+export interface IState extends IEntity {
   name: string;
   price: number;
-  port: Port;
-  locations: Location[];
+  port: IPort;
+  locations: ILocation[];
 }
