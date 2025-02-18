@@ -1,6 +1,4 @@
-import Breadcrumbs from "@/components/Breadcrumbs";
-import Footer from "@/components/Footer";
-import Header from "@components/Header";
+import { Breadcrumbs, Footer, Header } from "@components/index";
 import { Outlet, useLocation } from "react-router-dom";
 
 interface HeaderOptions {
