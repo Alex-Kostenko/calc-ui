@@ -1,10 +1,9 @@
-import { Location } from "@/interfaces/location";
-import { Port } from "@/interfaces/port";
+import { ILocation, IPort } from "@/interfaces/index";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface TotalState {
-  location: null | Location;
-  locationPort: null | Port;
+  location: null | ILocation;
+  locationPort: null | IPort;
   auctionName: null | string;
 }
 
