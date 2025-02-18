@@ -37,7 +37,7 @@ export const strapiApi = createApi({
         `ports?filter[locations][documentId]=${locationId}`,
     }),
     getAllAuctions: builder.query<IResponse<IAuction[]>, void>({
-      query: () => "auctions",
+      query: () => "auctions?populate=locations",
     }),
   }),
 });
