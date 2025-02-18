@@ -6,7 +6,8 @@
       "@assets/*": ["./assets/*"],
       "@components/*": ["./components/*"],
       "@layouts/*": ["./layouts/*"],
-      "@pages/*": ["./pages/*"]
+      "@pages/*": ["./pages/*"],
+      "@store/*": ["./store/*"]
     },
 
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
