@@ -7,3 +7,4 @@ export * from "./response";
 export * from "./role";
 export * from "./state";
 export * from "./user";
+export * from "./fuel.type";
