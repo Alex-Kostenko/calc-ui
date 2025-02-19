@@ -3,4 +3,30 @@
 @theme {
   --color-main-blue: #1b2032;
   --color-main-gray: #e6e8ed;
+
+  --color-map-blue: rgb(9, 136, 255);
+}
+
+.usa-map__territory {
+  fill: #e6e8ed;
+  stroke: #0988ff;
+  stroke-linejoin: round;
+  stroke-width: 0.95;
+}
+
+.usa-map__text {
+  fill: #1b2032;
+  font-family: "Nunito", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  stroke-width: 0;
+}
+.usa-map__line {
+  fill: #5c6770;
+}
+.usa-map__marker-large {
+  fill: rgba(9, 136, 255, 0.75);
+}
+.usa-map__marker-small {
+  fill: #004689;
 }
