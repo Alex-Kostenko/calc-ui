@@ -1,4 +1,3 @@
-import { Container } from "@/components";
 import {
   Port,
   AuctionCards,
@@ -7,27 +6,26 @@ import {
   FuelType,
   EngineVolume,
   Year,
+  Map,
+  Result,
+  CarType,
 } from "@/components/Calculator/index";
-import { useAppSelector } from "@/hooks";
 
 const Calculator = () => {
-  const { carPrice, location } = useAppSelector((state) => state.total);
-
   return (
-    <div className="flex flex-col gap-5">
-      <CarPrice />
-      <AuctionCards />
-      <Locations />
-      <Port />
-      <FuelType />
-      <EngineVolume />
-      <Year />
-
-      <Container>
-        <p>car price: {carPrice}</p>
-        <p>location price: {location?.price}</p>
-        <p>state price: {location?.state.price}</p>
-      </Container>
+    <div className="grid lg:grid-cols-2 gap-5 container mx-auto my-10">
+      <div className="flex flex-col gap-5">
+        <CarPrice />
+        <AuctionCards />
+        <CarType />
+        <Locations />
+        <Port />
+        <FuelType />
+        <EngineVolume />
+        <Year />
+      </div>
+      <Map />
+      <Result />
     </div>
   );
 };

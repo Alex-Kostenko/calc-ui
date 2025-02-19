@@ -5,3 +5,6 @@ export { default as Port } from "./Port";
 export { default as FuelType } from "./FuelType";
 export { default as EngineVolume } from "./EngineVolume";
 export { default as Year } from "./Year";
+export { default as Map } from "./Map";
+export { default as Result } from "./Result";
+export { default as CarType } from "./CarType";
