@@ -16,10 +16,6 @@ const Result = () => {
           tax.threshold > carPrice && all_taxes[index - 1].tax
       );
 
-  console.log(
-    location?.auctions.find((a) => a.name === auctionName)?.auction_tax.tax
-  );
-
   return (
     <Container className="grid grid-cols-2 gap-5 bg-main-gray text-secondary-gray pt-4 rounded">
       <div className="flex flex-col gap-4 px-2">
