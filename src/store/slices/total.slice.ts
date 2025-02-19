@@ -1,10 +1,13 @@
-import { ILocation, IPort } from "@/interfaces/index";
+import { ICarType } from "@/interfaces/car.type";
+import { ILocation, IPort, IUser } from "@/interfaces/index";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface TotalState {
   location: null | ILocation;
   locationPort: null | IPort;
   auctionName: null | string;
+  carType?: ICarType;
+  user?: IUser;
 
   carPrice: null | number;
   auctionTax?: number;

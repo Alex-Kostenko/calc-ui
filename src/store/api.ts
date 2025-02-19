@@ -1,3 +1,4 @@
+import { ICarType } from "@/interfaces/car.type";
 import {
   IUser,
   IAuction,
@@ -24,7 +25,7 @@ export const strapiApi = createApi({
     }),
     getAllLocations: builder.query<IResponse<ILocation[]>, void>({
       query: () =>
-        "locations?populate[state][populate]=port&populate[auctions][fields]=*&populate=port",
+        "locations?populate[state][fields]=*&populate[auctions][fields]=*&populate[port][populate]=car_types",
     }),
     getAllStates: builder.query<IResponse<IState[]>, void>({
       query: () => "states?populate=port",
@@ -39,6 +40,9 @@ export const strapiApi = createApi({
     getAllAuctions: builder.query<IResponse<IAuction[]>, void>({
       query: () => "auctions?populate=locations",
     }),
+    getAllCarTypes: builder.query<IResponse<ICarType[]>, void>({
+      query: () => "car-types?populate=image",
+    }),
   }),
 });
 
@@ -50,4 +54,5 @@ export const {
   useGetPortsByLocationQuery,
   useGetAllStatesQuery,
   useGetAllAuctionsQuery,
+  useGetAllCarTypesQuery,
 } = strapiApi;
