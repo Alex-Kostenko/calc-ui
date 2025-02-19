@@ -1,15 +1,9 @@
 import { useGetAllCarTypesQuery } from "@/store/api";
 import Container from "../Container";
-import { IImage } from "@/interfaces/image";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { setAll } from "@/store/slices/total.slice";
 import { ICarType } from "@/interfaces/car.type";
-
-function getImageUrl(image: IImage) {
-  return (
-    (import.meta.env.VITE_STRAPI_IMG_URL || "http://localhost:1337") + image.url
-  );
-}
+import { getImageUrl } from "@/utils";
 
 const CarType = () => {
   const { data, isLoading } = useGetAllCarTypesQuery();

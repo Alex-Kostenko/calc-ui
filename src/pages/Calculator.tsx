@@ -9,6 +9,7 @@ import {
   Map,
   Result,
   CarType,
+  CarContainer,
 } from "@/components/Calculator/index";
 
 const Calculator = () => {
@@ -24,7 +25,10 @@ const Calculator = () => {
         <EngineVolume />
         <Year />
       </div>
-      <Map />
+      <div className="flex flex-col gap-5">
+        <Map />
+        <CarContainer />
+      </div>
       <Result />
     </div>
   );
