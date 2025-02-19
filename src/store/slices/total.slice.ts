@@ -1,10 +1,9 @@
 import { ICarType } from "@/interfaces/car.type";
-import { ILocation, IPort, IUser } from "@/interfaces/index";
+import { ILocation, IUser } from "@/interfaces/index";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface TotalState {
   location: null | ILocation;
-  locationPort: null | IPort;
   auctionName: null | string;
   carType?: ICarType;
   user?: IUser;
@@ -27,7 +26,6 @@ export interface TotalState {
 
 const initialState: TotalState = {
   location: null,
-  locationPort: null,
   auctionName: null,
   carPrice: null,
 };
@@ -52,15 +50,12 @@ export const totalSlice = createSlice({
     setCarPrice: (state, action) => {
       state.carPrice = action.payload;
     },
-    setPorts: (state, action) => {
-      state.locationPort = action.payload;
-    },
     setAuction: (state, action) => {
       state.auctionName = action.payload;
     },
   },
 });
 
-export const { setAll, setAuction, setLocation, setPorts } = totalSlice.actions;
+export const { setAll, setAuction, setLocation } = totalSlice.actions;
 
 export default totalSlice.reducer;

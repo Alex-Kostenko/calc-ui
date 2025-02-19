@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useGetAllLocationsQuery } from "@/store/api";
-import { setAll, setPorts } from "@/store/slices/total.slice";
+import { setAll } from "@/store/slices/total.slice";
 import { Select } from "antd";
 
 const Locations = () => {
@@ -8,11 +8,6 @@ const Locations = () => {
   const auctionName = useAppSelector((state) => state.total.auctionName);
   const dispatch = useAppDispatch();
   const handleSetPorts = (locationName: string) => {
-    dispatch(
-      setPorts(
-        data?.data.find((location) => location.name === locationName)?.port
-      )
-    );
     dispatch(
       setAll({
         location: data?.data.find((location) => location.name === locationName),
