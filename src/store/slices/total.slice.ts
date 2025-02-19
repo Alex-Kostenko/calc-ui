@@ -9,7 +9,6 @@ export interface TotalState {
   user?: IUser;
 
   carPrice: null | number;
-  auctionTax?: number;
   insurance?: number;
   portDeliveryPrice?: number;
   seaTransportingPrice?: number;

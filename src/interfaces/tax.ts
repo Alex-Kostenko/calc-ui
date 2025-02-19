@@ -1,6 +1,5 @@
-import { IEntity } from "./entity";
-
-export interface ITax extends IEntity {
+export interface ITax {
+  id: number;
   threshold: number;
   tax: number;
 }

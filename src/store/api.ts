@@ -25,7 +25,7 @@ export const strapiApi = createApi({
     }),
     getAllLocations: builder.query<IResponse<ILocation[]>, void>({
       query: () =>
-        "locations?populate[state][fields]=*&populate[auctions][fields]=*&populate[port][populate]=car_types",
+        "locations?populate[state][fields]=*&populate[auctions][populate]=auction_tax.tax&populate[port][populate]=car_types",
     }),
     getAllStates: builder.query<IResponse<IState[]>, void>({
       query: () => "states?populate=port",
