@@ -2,15 +2,29 @@ import { useAppSelector } from "@/hooks";
 import { Container } from "@/components";
 
 const Result = () => {
-  const { carPrice, location, carType } = useAppSelector(
+  const { carPrice, location, carType, auctionName } = useAppSelector(
     (state) => state.total
+  );
+
+  const resultTax =
+    carPrice &&
+    location?.auctions &&
+    location?.auctions
+      .find((a) => a.name === auctionName)
+      ?.auction_tax.tax.map(
+        (tax, index, all_taxes) =>
+          tax.threshold > carPrice && all_taxes[index - 1].tax
+      );
+
+  console.log(
+    location?.auctions.find((a) => a.name === auctionName)?.auction_tax.tax
   );
 
   return (
     <Container className="grid grid-cols-2 gap-5 bg-main-gray text-secondary-gray pt-4 rounded">
       <div className="flex flex-col gap-4 px-2">
         <p>car price: {carPrice}</p>
-        <p>auction tax: not available</p>
+        <p>auction tax: {resultTax}</p>
         <p>insurance: not available</p>
         <p>port delivery price: {location?.price}</p>
         <p>
