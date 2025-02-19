@@ -1,4 +1,6 @@
+import { useAppDispatch } from "@/hooks";
 import { useGetAllUsersQuery } from "@/store/api";
+import { setAll } from "@/store/slices/total.slice";
 import type { FormProps } from "antd";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const LoginForm: React.FC = () => {
   const { data } = useGetAllUsersQuery();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -29,13 +32,14 @@ const LoginForm: React.FC = () => {
     //       sessionStorage.setItem(key, JSON.stringify(value));
     //     });
 
-    if (
-      data?.data.some(
-        (user) =>
-          user.email === values.email && user.password === values.password
-      )
-    )
+    const user = data?.data.find(
+      (user) => user.email === values.email && user.password === values.password
+    );
+
+    if (user) {
+      dispatch(setAll({ user }));
       navigate("/");
+    }
   };
 
   return (
