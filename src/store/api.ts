@@ -41,7 +41,7 @@ export const strapiApi = createApi({
       query: () => "auctions?populate=locations&populate=auction_tax",
     }),
     getAllCarTypes: builder.query<IResponse<ICarType[]>, void>({
-      query: () => "car-types?populate=image",
+      query: () => "car-types?populate=image&populate=packImage",
     }),
   }),
 });

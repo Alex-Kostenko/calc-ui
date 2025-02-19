@@ -5,4 +5,5 @@ export interface ICarType extends IEntity {
   name: string;
   price: number;
   image: IImage;
+  packImage: IImage;
 }
