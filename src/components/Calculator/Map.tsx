@@ -19,7 +19,6 @@ const Map = () => {
       .split(" ")
       .join("-")
       .concat("-port");
-    console.log(document.querySelector(`g[id=${id}]>.usa-map__marker-large`));
 
     document
       .querySelector(`g[id=${id}]>.usa-map__marker-large`)

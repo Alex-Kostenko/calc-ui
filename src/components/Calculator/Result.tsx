@@ -6,9 +6,6 @@ const Result = () => {
     (state) => state.total
   );
 
-  console.log(carType);
-  console.log(location);
-
   return (
     <Container className="grid grid-cols-2 gap-5 bg-main-gray text-secondary-gray pt-4 rounded">
       <div className="flex flex-col gap-4 px-2">
