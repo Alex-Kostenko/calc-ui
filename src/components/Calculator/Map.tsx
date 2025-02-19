@@ -1,6 +1,36 @@
+import { useAppSelector } from "@/hooks";
+import { useEffect } from "react";
+
 const Map = () => {
+  const { location } = useAppSelector((state) => state.total);
+
+  useEffect(() => {
+    document
+      .querySelector(`g[id=${location?.state.name}]>path`)
+      ?.classList.add("!fill-[#0988ff]");
+    document
+      .querySelectorAll(`:not(#${location?.state.name})>path`)
+      .forEach((e) => e.classList.remove("!fill-[#0988ff]"));
+  }, [location?.state.name, location]);
+
+  useEffect(() => {
+    const id = location?.port.name
+      .toLowerCase()
+      .split(" ")
+      .join("-")
+      .concat("-port");
+    console.log(document.querySelector(`g[id=${id}]>.usa-map__marker-large`));
+
+    document
+      .querySelector(`g[id=${id}]>.usa-map__marker-large`)
+      ?.classList.add("animate-pulse");
+    document
+      .querySelectorAll(`:not(#${id}) > .usa-map__marker-large`)
+      .forEach((e) => e.classList.remove("animate-pulse"));
+  }, [location?.port]);
+
   return (
-    <svg viewBox="0 0 1220 704.9">
+    <svg id="map" viewBox="0 0 1220 704.9">
       <g id="MA">
         <path
           inkscape:connector-curvature="0"
