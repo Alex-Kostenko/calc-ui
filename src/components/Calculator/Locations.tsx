@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useGetAllLocationsQuery } from "@/store/api";
-import { setLocation, setPorts } from "@/store/slices/total.slice";
+import { setAll, setPorts } from "@/store/slices/total.slice";
 import { Select } from "antd";
 
 const Locations = () => {
@@ -14,7 +14,9 @@ const Locations = () => {
       )
     );
     dispatch(
-      setLocation(data?.data.find((location) => location.name === locationName))
+      setAll({
+        location: data?.data.find((location) => location.name === locationName),
+      })
     );
   };
   return (
