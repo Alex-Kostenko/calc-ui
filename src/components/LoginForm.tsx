@@ -1,6 +1,4 @@
-import { useAppDispatch } from "@/hooks";
-import { useGetAllUsersQuery } from "@/store/api";
-import { setAll } from "@/store/slices/total.slice";
+import { useLoginMutation } from "@/store/api";
 import type { FormProps } from "antd";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +8,7 @@ import { useNavigate } from "react-router-dom";
 // };
 
 const LoginForm: React.FC = () => {
-  const { data } = useGetAllUsersQuery();
-  const dispatch = useAppDispatch();
+  const [login, { data, isLoading, isSuccess }] = useLoginMutation();
 
   const navigate = useNavigate();
 
@@ -22,23 +19,18 @@ const LoginForm: React.FC = () => {
   };
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    //     if (values.remember) {
-    //       Object.entries(values).forEach(([key, value]) => {
-    //         localStorage.setItem(key, JSON.stringify(value));
-    //       });
-    //     }
-    //
-    //     Object.entries(values).forEach(([key, value]) => {
-    //       sessionStorage.setItem(key, JSON.stringify(value));
-    //     });
+    login({ identifier: values.email!, password: values.password! });
 
-    const user = data?.data.find(
-      (user) => user.email === values.email && user.password === values.password
-    );
+    if (!isLoading && isSuccess) {
+      const { user, jwt } = data;
 
-    if (user) {
-      dispatch(setAll({ user }));
-      navigate("/");
+      if (user) {
+        if (values.remember) {
+          localStorage.setItem("token", jwt);
+        }
+        sessionStorage.setItem("token", jwt);
+        navigate("/");
+      }
     }
   };
 
