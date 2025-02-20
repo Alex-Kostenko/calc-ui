@@ -4,7 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 interface HeaderOptions {
   buttonName: string;
   href: string;
-  onClick: (...props: any) => any;
+  onClick: () => void;
 }
 
 const Layout = () => {
@@ -17,6 +17,7 @@ const Layout = () => {
       href: "/login",
       onClick: () => {
         localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
       },
     },
     "/login": {

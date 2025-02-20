@@ -2,7 +2,7 @@ import { Button } from "antd";
 
 interface Props {
   buttonName: string;
-  onClick: (...props: any) => any;
+  onClick: () => void;
   href: string;
 }
 
