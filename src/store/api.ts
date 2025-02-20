@@ -1,4 +1,3 @@
-import { ICarType } from "@/interfaces/car.type";
 import {
   IUser,
   IAuction,
@@ -6,15 +5,24 @@ import {
   IPort,
   IResponse,
   IState,
+  LoginDto,
+  LoginData,
+  ICarType,
 } from "@interfaces/index";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+const headers = token
+  ? {
+      authorization: "Bearer " + token,
+    }
+  : undefined;
+
 export const strapiApi = createApi({
   reducerPath: "strapiApi",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_STRAPI_URL || "http://localhost:1337/api/",
-    headers: {
-      authorization: "Bearer " + import.meta.env.VITE_STRAPI_TOKEN,
-    },
+    headers,
   }),
   endpoints: (builder) => ({
     getUser: builder.query<IResponse<IUser>, string>({
@@ -43,6 +51,13 @@ export const strapiApi = createApi({
     getAllCarTypes: builder.query<IResponse<ICarType[]>, void>({
       query: () => "car-types?populate=image&populate=packImage",
     }),
+    login: builder.mutation<LoginData, LoginDto>({
+      query: (dto) => ({
+        url: "auth/local",
+        method: "POST",
+        body: dto,
+      }),
+    }),
   }),
 });
 
@@ -55,4 +70,5 @@ export const {
   useGetAllStatesQuery,
   useGetAllAuctionsQuery,
   useGetAllCarTypesQuery,
+  useLoginMutation,
 } = strapiApi;
