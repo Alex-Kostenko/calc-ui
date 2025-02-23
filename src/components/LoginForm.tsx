@@ -4,10 +4,6 @@ import { Button, Checkbox, Form, Input } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
-//   console.log("Failed:", errorInfo);
-// };
-
 const LoginForm: React.FC = () => {
   const [login, { data, isLoading, isSuccess }] = useLoginMutation();
 
