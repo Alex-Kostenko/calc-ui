@@ -1,10 +1,13 @@
 import { useAppSelector } from "@/hooks";
 import { Container } from "@/components";
+import { useFormula } from "@/hooks/useFormula";
 
 const Result = () => {
   const { carPrice, location, carType, auctionName } = useAppSelector(
     (state) => state.total
   );
+
+  const [execFormula] = useFormula("excise");
 
   const resultTax =
     carPrice &&
@@ -30,7 +33,7 @@ const Result = () => {
             location?.port.car_types.find((type) => type.name === carType.name)!
               .price}
         </p>
-        <p>excise: by formula</p>
+        <p>excise: {execFormula() || ""}</p>
         <p>duty: by formula</p>
       </div>
 

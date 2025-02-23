@@ -10,3 +10,4 @@ export * from "./user";
 export * from "./fuel.type";
 export * from "./login";
 export * from "./car.type";
+export * from "./formula";
