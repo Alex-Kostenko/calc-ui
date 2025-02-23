@@ -6,6 +6,8 @@ export interface TotalState {
   location: null | ILocation;
   auctionName: null | string;
   carType?: ICarType;
+  carYear?: number;
+  engineVolume?: number;
   user?: IUser;
 
   carPrice: null | number;
