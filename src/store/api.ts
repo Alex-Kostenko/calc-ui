@@ -8,22 +8,25 @@ import {
   LoginDto,
   LoginData,
   ICarType,
+  IFormula,
 } from "@interfaces/index";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const token = localStorage.getItem("token") || sessionStorage.getItem("token");
-const headers = token
-  ? {
-      authorization: "Bearer " + token,
+const baseQuery = fetchBaseQuery({
+  baseUrl: import.meta.env.VITE_STRAPI_URL || "http://localhost:1337/api/",
+  prepareHeaders: (headers) => {
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
     }
-  : undefined;
+    return headers;
+  },
+});
 
 export const strapiApi = createApi({
   reducerPath: "strapiApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_STRAPI_URL || "http://localhost:1337/api/",
-    headers,
-  }),
+  baseQuery,
   endpoints: (builder) => ({
     getUser: builder.query<IResponse<IUser>, string>({
       query: (id) => `calculator-users/${id}`,
@@ -51,12 +54,21 @@ export const strapiApi = createApi({
     getAllCarTypes: builder.query<IResponse<ICarType[]>, void>({
       query: () => "car-types?populate=image&populate=packImage",
     }),
+    getAllFormules: builder.query<IResponse<IFormula[]>, void>({
+      query: () => "formulas?populate=operations",
+    }),
+    getFormulaByName: builder.query<IResponse<IFormula[]>, string>({
+      query: (name) => `formulas?filter[name]=${name}`,
+    }),
     login: builder.mutation<LoginData, LoginDto>({
       query: (dto) => ({
         url: "auth/local",
         method: "POST",
         body: dto,
       }),
+    }),
+    getMe: builder.query<IUser, void>({
+      query: () => "users/me?populate=coefficient",
     }),
   }),
 });
@@ -71,4 +83,7 @@ export const {
   useGetAllAuctionsQuery,
   useGetAllCarTypesQuery,
   useLoginMutation,
+  useGetAllFormulesQuery,
+  useGetFormulaByNameQuery,
+  useGetMeQuery,
 } = strapiApi;
