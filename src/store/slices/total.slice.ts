@@ -1,5 +1,5 @@
 import { ICarType } from "@/interfaces/car.type";
-import { ILocation, IUser } from "@/interfaces/index";
+import { EFuelType, ILocation, IUser } from "@/interfaces/index";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface TotalState {
@@ -7,10 +7,12 @@ export interface TotalState {
   auctionName: null | string;
   carType?: ICarType;
   carYear?: number;
+  fuelType?: EFuelType;
   volume?: number;
+  auctionFee?: number;
   user?: IUser;
 
-  carPrice: null | number;
+  carPrice?: null | number;
   insurance?: number;
   portDeliveryPrice?: number;
   seaTransportingPrice?: number;
@@ -28,7 +30,7 @@ export interface TotalState {
 const initialState: TotalState = {
   location: null,
   auctionName: null,
-  carPrice: null,
+  carPrice: undefined,
 };
 
 export const totalSlice = createSlice({
