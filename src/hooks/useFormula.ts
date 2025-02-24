@@ -66,7 +66,9 @@ export function useFormula(name: string) {
       })
       .join(" ");
 
-  const execFormula = new Function(`return Math.round(${formula}) || ""`);
+  const execFormula = new Function(
+    `return isNaN(Number(${formula})) || ${formula} === 'undefined' ? "" : Math.round(${formula})`
+  );
 
   return [execFormula, formula, initFormula] as const;
 }
