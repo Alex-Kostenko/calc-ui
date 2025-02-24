@@ -1,29 +1,55 @@
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Container } from "@/components";
 import { useFormula } from "@/hooks/useFormula";
+import { setAll } from "@/store/slices/total.slice";
 
 const Result = () => {
   const { carPrice, location, carType, auctionName } = useAppSelector(
     (state) => state.total
   );
 
-  const [execFormula] = useFormula("excise");
+  const dispatch = useAppDispatch();
 
-  const resultTax =
-    carPrice &&
-    location?.auctions &&
-    location?.auctions
-      .find((a) => a.name === auctionName)
-      ?.auction_tax.tax.map(
+  const [execFormula] = useFormula("excise");
+  const [getDuty] = useFormula("duty");
+  const [getVat] = useFormula("vat");
+
+  const calculateFee = () => {
+    if (carPrice && location?.auctions) {
+      const taxes = location?.auctions.find((a) => a.name === auctionName)
+        ?.auction_tax.tax;
+
+      if (!taxes) {
+        return undefined;
+      }
+
+      const index = taxes.findIndex(
         (tax, index, all_taxes) =>
-          tax.threshold > carPrice && all_taxes[index - 1].tax
+          tax.threshold >= carPrice && all_taxes[index - 1].tax
       );
+
+      if (index && index > 0) {
+        const tax = taxes[index - 1];
+        return Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
+      } else if (index && index === 0) {
+        const tax = taxes[index];
+        return Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
+      }
+
+      const tax = taxes[taxes?.length - 1];
+      return Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
+    }
+  };
+
+  dispatch(setAll({ auctionFee: calculateFee() }));
+
+  const auctionFee = calculateFee();
 
   return (
     <Container className="grid grid-cols-2 gap-5 bg-main-gray text-secondary-gray pt-4 rounded">
       <div className="flex flex-col gap-4 px-2">
         <p>car price: {carPrice}</p>
-        <p>auction tax: {resultTax}</p>
+        <p>auction tax: {auctionFee}</p>
         <p>insurance: not available</p>
         <p>port delivery price: {location?.price}</p>
         <p>
@@ -34,11 +60,11 @@ const Result = () => {
               .price}
         </p>
         <p>excise: {execFormula() || ""}</p>
-        <p>duty: by formula</p>
+        <p>duty: {getDuty()}</p>
       </div>
 
       <div className="flex flex-col gap-4 px-2">
-        <p>vat: by formula</p>
+        <p>vat: {getVat()}</p>
         <p>broker: not available</p>
         <p>expedition: not available</p>
         <p>city delivery price: not available</p>
