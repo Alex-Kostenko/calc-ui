@@ -3,7 +3,8 @@ const Footer = () => {
 
   return (
     <footer className="w-full bg-main-blue text-white p-12 text-center">
-      &copy; {year}. calculator.online
+      &copy; {year}. Made by{" "}
+      <a href="https://unicode.software">Unicode.Software</a>
     </footer>
   );
 };
