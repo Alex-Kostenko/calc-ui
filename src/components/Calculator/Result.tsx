@@ -13,10 +13,7 @@ const Result = () => {
   const [getExcise] = useFormula("excise");
   const [getDuty] = useFormula("duty");
   const [getExciseElectric] = useFormula("excise_electric");
-  const [getDutyElectric, f, init] = useFormula("duty_electric");
-  console.log(getDutyElectric());
-  console.log(f);
-  console.log(init);
+  const [getDutyElectric] = useFormula("duty_electric");
 
   const [getVat] = useFormula("vat");
 
