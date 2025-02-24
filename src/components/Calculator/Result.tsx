@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Container } from "@/components";
 import { useFormula } from "@/hooks/useFormula";
 import { setAll } from "@/store/slices/total.slice";
+import { useEffect } from "react";
 
 const Result = () => {
   const { carPrice, location, carType, auctionName } = useAppSelector(
@@ -41,7 +42,9 @@ const Result = () => {
     }
   };
 
-  dispatch(setAll({ auctionFee: calculateFee() }));
+  useEffect(() => {
+    dispatch(setAll({ auctionFee: calculateFee() }));
+  }, [calculateFee]);
 
   const auctionFee = calculateFee();
 
