@@ -58,7 +58,7 @@ export const strapiApi = createApi({
       query: () => "formulas?populate=operations",
     }),
     getFormulaByName: builder.query<IResponse<IFormula[]>, string>({
-      query: (name) => `formulas?filter[name]=${name}`,
+      query: (name) => `formulas?filters[name]=${name}`,
     }),
     login: builder.mutation<LoginData, LoginDto>({
       query: (dto) => ({
@@ -68,7 +68,7 @@ export const strapiApi = createApi({
       }),
     }),
     getMe: builder.query<IUser, void>({
-      query: () => "users/me?populate=coefficient",
+      query: () => "users/me?populate[coefficient][populate]=*",
     }),
   }),
 });
