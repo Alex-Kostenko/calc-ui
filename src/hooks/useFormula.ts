@@ -31,6 +31,7 @@ export function useFormula(name: string) {
       return year > 15 ? 15 : year - 1;
     },
     fuel: () => {
+      // TODO: move to strapi as a table
       if (fuelType === "diesel") {
         return volume && volume >= 3500 ? 150 : 75;
       } else if (fuelType === "gasoline") {
