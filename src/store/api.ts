@@ -1,3 +1,4 @@
+import { IConst } from "@/interfaces/const";
 import {
   IUser,
   IAuction,
@@ -70,6 +71,9 @@ export const strapiApi = createApi({
     getMe: builder.query<IUser, void>({
       query: () => "users/me?populate[coefficient][populate]=*",
     }),
+    getConsts: builder.query<IResponse<IConst>, void>({
+      query: () => "const",
+    }),
   }),
 });
 
@@ -86,4 +90,5 @@ export const {
   useGetAllFormulesQuery,
   useGetFormulaByNameQuery,
   useGetMeQuery,
+  useGetConstsQuery,
 } = strapiApi;
