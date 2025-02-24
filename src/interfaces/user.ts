@@ -1,3 +1,4 @@
+import { ICoefficient } from "./coefficient";
 import { IEntity } from "./entity";
 import { Role } from "./role";
 
@@ -10,4 +11,5 @@ export interface IUser extends IEntity {
   role: Role;
   blocked: boolean;
   confirmed: boolean;
+  coefficient: ICoefficient;
 }
