@@ -7,7 +7,7 @@ export interface TotalState {
   auctionName: null | string;
   carType?: ICarType;
   carYear?: number;
-  engineVolume?: number;
+  volume?: number;
   user?: IUser;
 
   carPrice: null | number;

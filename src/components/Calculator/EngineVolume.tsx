@@ -7,7 +7,7 @@ const EngineVolume = () => {
   const dispatch = useAppDispatch();
 
   const handleSelect = (value: number) => {
-    dispatch(setAll({ engineVolume: value }));
+    dispatch(setAll({ volume: value }));
   };
   return (
     <Container>
