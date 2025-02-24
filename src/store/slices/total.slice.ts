@@ -1,4 +1,5 @@
 import { ICarType } from "@/interfaces/car.type";
+import { IConst } from "@/interfaces/const";
 import { EFuelType, ILocation, IUser } from "@/interfaces/index";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -11,6 +12,7 @@ export interface TotalState {
   volume?: number;
   auctionFee?: number;
   user?: IUser;
+  consts?: IConst;
 
   carPrice?: null | number;
   insurance?: number;
