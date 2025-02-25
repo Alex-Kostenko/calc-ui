@@ -13,7 +13,7 @@ const Layout = () => {
 
   const headerOptions: Record<string, HeaderOptions> = {
     "/": {
-      buttonName: "Log Out",
+      buttonName: "Вийти",
       href: "/login",
       onClick: () => {
         localStorage.removeItem("token");
@@ -21,12 +21,12 @@ const Layout = () => {
       },
     },
     "/login": {
-      buttonName: "register",
+      buttonName: "Реєстрація",
       href: "/register",
       onClick: () => {},
     },
     "/register": {
-      buttonName: "login",
+      buttonName: "Вхід",
       href: "/login",
       onClick: () => {},
     },

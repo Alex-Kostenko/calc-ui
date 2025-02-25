@@ -40,15 +40,15 @@ const LoginForm: React.FC = () => {
       <h2 className="text-center text-2xl">Login</h2>
       <Form
         name="basic"
-        labelCol={{ span: 8 }}
+        labelCol={{ span: 7 }}
         wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
+        style={{ maxWidth: 800 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        autoComplete="off"
+        autoComplete="on"
       >
         <Form.Item<FieldType>
-          label="Email"
+          label="Пошта"
           name="email"
           rules={[{ required: true, message: "Please input your email!" }]}
         >
@@ -56,7 +56,7 @@ const LoginForm: React.FC = () => {
         </Form.Item>
 
         <Form.Item<FieldType>
-          label="Password"
+          label="Пароль"
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
@@ -68,12 +68,12 @@ const LoginForm: React.FC = () => {
           valuePropName="checked"
           label={null}
         >
-          <Checkbox>Remember me</Checkbox>
+          <Checkbox>Запам'ятати мене</Checkbox>
         </Form.Item>
 
         <Form.Item label={null}>
-          <Button type="primary" htmlType="submit">
-            Login
+          <Button type="primary" htmlType="submit" className="w-2/3">
+            Вхід
           </Button>
         </Form.Item>
       </Form>
