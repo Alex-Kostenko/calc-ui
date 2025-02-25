@@ -62,6 +62,19 @@ export function useFormula(name: string) {
         if (isNumber(token) || operations.includes(token)) {
           return token;
         }
+        if (token.includes(":")) {
+          const tokens = token.split(":");
+
+          return (
+            tokens.reduce(
+              (acc, key) =>
+                acc && key in acc
+                  ? (acc[key as keyof typeof total] as any)
+                  : undefined,
+              total
+            ) ?? "0"
+          );
+        }
         return total[token as keyof typeof total] || "undefined";
       })
       .join(" ");
