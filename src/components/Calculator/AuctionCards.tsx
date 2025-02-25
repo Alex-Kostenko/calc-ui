@@ -3,6 +3,7 @@ import { useGetAllAuctionsQuery } from "@/store/api";
 import { setAuction } from "@/store/slices/total.slice";
 import { useState } from "react";
 import { Container } from "@components/index";
+import { getImageUrl } from "@/utils";
 
 const AuctionCards = () => {
   const [active, setActive] = useState<string | null>(null);
@@ -27,9 +28,14 @@ const AuctionCards = () => {
             <div
               data-active={active === auction.name ? true : undefined}
               key={index}
-              className="data-[active]:!border-b-blue-600 data-[active]:shadow-md p-7 bg-main-gray !rounded-none cursor-pointer border-b-4 border-transparent"
+              className="data-[active]:!border-b-blue-600 data-[active]:shadow-md px-7 py-2 bg-main-gray !rounded-none cursor-pointer border-b-4 border-transparent flex flex-col items-center gap-4"
               onClick={handleSelectAuction}
             >
+              <img
+                src={getImageUrl(auction.image)}
+                alt=""
+                className="!h-[55px]"
+              />
               {auction.name}
             </div>
           ))}
