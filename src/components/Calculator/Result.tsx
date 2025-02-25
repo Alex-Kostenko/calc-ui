@@ -69,7 +69,7 @@ const Result = () => {
 
   return (
     <Container className="grid grid-cols-2 gap-5 col-span-2 bg-main-gray text-secondary-gray pt-4 rounded">
-      <div className="flex flex-col gap-4 px-2">
+      <div className="flex flex-col gap-4 px-4">
         <p>Ціна авто: {carPrice}</p>
         <p>Аукціонний збір: {auctionFee}</p>
         <p>Страхування: not available</p>
@@ -87,7 +87,7 @@ const Result = () => {
         <p>Мито: {fuelType === "electric" ? getDutyElectric() : getDuty()}</p>
       </div>
 
-      <div className="flex flex-col gap-4 px-2">
+      <div className="flex flex-col gap-4 px-4">
         <p>ПДВ: {getVat()}</p>
         <p>Брокер: {carPrice && consts?.broker}</p>
         <p>Експедиція: {carPrice && consts?.expedition}</p>
@@ -97,7 +97,7 @@ const Result = () => {
         <p>Послуги компанії: {carPrice && consts?.companyService}</p>
       </div>
 
-      <div className="col-span-2 px-24 py-1 text-white bg-blue-600">
+      <div className="col-span-2 px-4 py-3 text-white bg-blue-600 rounded-b">
         Ціна за авто зі США під ключ
       </div>
     </Container>
