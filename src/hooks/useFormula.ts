@@ -13,7 +13,7 @@ const isNumber = (str: string): boolean => {
 export function useFormula(name: string) {
   const { data, isError } = useGetFormulaByNameQuery(name);
 
-  const { user, carYear, fuelType, volume } = useAppSelector(
+  const { user, carYear, fuelType, volume, fuelCost } = useAppSelector(
     (state) => state.total
   );
   const total = useAppSelector((state) => state.total);
@@ -31,13 +31,10 @@ export function useFormula(name: string) {
       return year > 15 ? 15 : year - 1;
     },
     fuel: () => {
-      // TODO: move to strapi as a table
-      if (fuelType === "diesel") {
-        return volume && volume >= 3500 ? 150 : 75;
-      } else if (fuelType === "gasoline") {
-        return volume && volume >= 3000 ? 100 : 50;
-      }
-      return volume;
+      if (!fuelType || !fuelCost || !volume) return undefined;
+      const cost = fuelCost[fuelType];
+
+      return Math.round(volume >= cost.amount ? cost.max : cost.min);
     },
   };
 
