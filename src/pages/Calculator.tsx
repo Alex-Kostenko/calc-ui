@@ -12,16 +12,29 @@ import {
   CarContainer,
 } from "@/components/Calculator/index";
 import { useAppDispatch } from "@/hooks";
-import { useGetMeQuery } from "@/store/api";
+import {
+  useGetConstsQuery,
+  useGetMeQuery,
+  useGetRegistrationPercentQuery,
+} from "@/store/api";
 import { setAll } from "@/store/slices/total.slice";
 import { useEffect } from "react";
 
 const Calculator = () => {
   const dispatch = useAppDispatch();
   const { data } = useGetMeQuery();
+
+  const { data: consts } = useGetConstsQuery();
+  const { data: registrationPercents } = useGetRegistrationPercentQuery();
   useEffect(() => {
     if (data) {
-      dispatch(setAll({ user: data }));
+      dispatch(
+        setAll({
+          user: data,
+          consts: consts?.data,
+          registrationPercents: registrationPercents?.data.values,
+        })
+      );
     }
   }, [data]);
 
