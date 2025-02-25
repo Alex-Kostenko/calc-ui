@@ -11,7 +11,9 @@ const EngineVolume = () => {
   };
   return (
     <Container>
-      <h3>Engine Volume:</h3>
+      <h3>
+        Об'єм двигуна (см<sup>3</sup> - кВт):
+      </h3>
       <Input
         type="number"
         onChange={(e) => handleSelect(+e.target.value)}

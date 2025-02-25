@@ -16,7 +16,7 @@ const CarPrice = () => {
 
   return (
     <Container>
-      <h3>Car Price:</h3>
+      <h3>Ціна авто:</h3>
       <Input
         type="number"
         onChange={(e) => handleSetCarPrise(+e.target.value)}

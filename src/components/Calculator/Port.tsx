@@ -5,7 +5,7 @@ const Port = () => {
   const location = useAppSelector((state) => state.total.location);
   return (
     <Container>
-      <h3>Port: {location?.port.name}</h3>
+      <h3>Порт: {location?.port.name}</h3>
     </Container>
   );
 };

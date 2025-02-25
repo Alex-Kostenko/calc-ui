@@ -70,34 +70,36 @@ const Result = () => {
   return (
     <Container className="grid grid-cols-2 gap-5 col-span-2 bg-main-gray text-secondary-gray pt-4 rounded">
       <div className="flex flex-col gap-4 px-2">
-        <p>car price: {carPrice}</p>
-        <p>auction tax: {auctionFee}</p>
-        <p>insurance: not available</p>
-        <p>port delivery price: {location?.price}</p>
+        <p>Ціна авто: {carPrice}</p>
+        <p>Аукціонний збір: {auctionFee}</p>
+        <p>Страхування: not available</p>
+        <p>Доставка до порту: {location?.price}</p>
         <p>
-          sea transportation price:{" "}
+          Ціна морської переправи:{" "}
           {carType?.name &&
             location?.port &&
             location?.port.car_types.find((type) => type.name === carType.name)!
               .price}
         </p>
         <p>
-          excise: {fuelType === "electric" ? getExciseElectric() : getExcise()}
+          Акциз: {fuelType === "electric" ? getExciseElectric() : getExcise()}
         </p>
-        <p>duty: {fuelType === "electric" ? getDutyElectric() : getDuty()}</p>
+        <p>Мито: {fuelType === "electric" ? getDutyElectric() : getDuty()}</p>
       </div>
 
       <div className="flex flex-col gap-4 px-2">
-        <p>vat: {getVat()}</p>
-        <p>broker: {carPrice && consts?.broker}</p>
-        <p>expedition: {carPrice && consts?.expedition}</p>
-        <p>city delivery price: {carPrice && consts?.cityDelivery}</p>
-        <p>certification: {carPrice && consts?.certification}</p>
-        <p>registration: {calculateRegistration()}</p>
-        <p>company service: {carPrice && consts?.companyService}</p>
+        <p>ПДВ: {getVat()}</p>
+        <p>Брокер: {carPrice && consts?.broker}</p>
+        <p>Експедиція: {carPrice && consts?.expedition}</p>
+        <p>Доставка до міста Львів: {carPrice && consts?.cityDelivery}</p>
+        <p>Сертифікація: {carPrice && consts?.certification}</p>
+        <p>Постановка на облік: {calculateRegistration()}</p>
+        <p>Послуги компанії: {carPrice && consts?.companyService}</p>
       </div>
 
-      <div className="col-span-2 px-24 py-1 text-white bg-blue-600">total</div>
+      <div className="col-span-2 px-24 py-1 text-white bg-blue-600">
+        Ціна за авто зі США під ключ
+      </div>
     </Container>
   );
 };

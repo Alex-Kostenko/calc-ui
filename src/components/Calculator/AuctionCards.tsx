@@ -19,7 +19,7 @@ const AuctionCards = () => {
 
   return (
     <Container>
-      <h3>Auction:</h3>
+      <h3>Аукціон:</h3>
       <div className=" flex gap-5">
         {!isLoading &&
           data &&

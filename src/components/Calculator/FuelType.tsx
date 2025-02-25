@@ -11,7 +11,7 @@ const FuelType = () => {
   };
   return (
     <Container>
-      <h3>Fuel type:</h3>
+      <h3>Тип пального:</h3>
       <Select
         onSelect={handleSelect}
         options={Object.keys(EFuelType).map((f) => ({ title: f, value: f }))}

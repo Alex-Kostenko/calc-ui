@@ -15,7 +15,7 @@ const Year = () => {
 
   return (
     <Container>
-      <h3>Year:</h3>
+      <h3>Рік:</h3>
       <Select
         onSelect={handleSelect}
         options={Array.from({ length: selectLength })
