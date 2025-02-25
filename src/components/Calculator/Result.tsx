@@ -5,8 +5,15 @@ import { setAll } from "@/store/slices/total.slice";
 import { useEffect } from "react";
 
 const Result = () => {
-  const { carPrice, location, carType, auctionName, consts, fuelType } =
-    useAppSelector((state) => state.total);
+  const {
+    carPrice,
+    location,
+    carType,
+    auctionName,
+    consts,
+    fuelType,
+    registrationPercents,
+  } = useAppSelector((state) => state.total);
 
   const dispatch = useAppDispatch();
 
@@ -14,7 +21,6 @@ const Result = () => {
   const [getDuty] = useFormula("duty");
   const [getExciseElectric] = useFormula("excise_electric");
   const [getDutyElectric] = useFormula("duty_electric");
-
   const [getVat] = useFormula("vat");
 
   const calculateFee = () => {
@@ -41,6 +47,17 @@ const Result = () => {
 
       const tax = taxes[taxes?.length - 1];
       return Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
+    }
+  };
+
+  const calculateRegistration = () => {
+    if (carPrice && registrationPercents) {
+      const percentCopy = [...registrationPercents];
+      const value = percentCopy
+        .sort((a, b) => b.threshold - a.threshold)
+        .find((value) => carPrice >= value.threshold);
+
+      return value ? Math.round((value.percent / 100) * carPrice) : 0;
     }
   };
 
@@ -72,12 +89,12 @@ const Result = () => {
 
       <div className="flex flex-col gap-4 px-2">
         <p>vat: {getVat()}</p>
-        <p>broker: {consts?.broker}</p>
-        <p>expedition: {consts?.expedition}</p>
-        <p>city delivery price: {consts?.cityDelivery}</p>
-        <p>certification: {consts?.certification}</p>
-        <p>registration: by final sum</p>
-        <p>company service: {consts?.companyService}</p>
+        <p>broker: {carPrice && consts?.broker}</p>
+        <p>expedition: {carPrice && consts?.expedition}</p>
+        <p>city delivery price: {carPrice && consts?.cityDelivery}</p>
+        <p>certification: {carPrice && consts?.certification}</p>
+        <p>registration: {calculateRegistration()}</p>
+        <p>company service: {carPrice && consts?.companyService}</p>
       </div>
 
       <div className="col-span-2 px-24 py-1 text-white bg-blue-600">total</div>
