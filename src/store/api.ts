@@ -11,6 +11,7 @@ import {
   LoginData,
   ICarType,
   IFormula,
+  IFuelCost,
 } from "@interfaces/index";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -78,6 +79,9 @@ export const strapiApi = createApi({
     getRegistrationPercent: builder.query<IResponse<IRegistration>, void>({
       query: () => "registration?populate=*",
     }),
+    getFuelCost: builder.query<IResponse<IFuelCost>, void>({
+      query: () => "fuel?populate=*",
+    }),
   }),
 });
 
@@ -96,4 +100,5 @@ export const {
   useGetMeQuery,
   useGetConstsQuery,
   useGetRegistrationPercentQuery,
+  useGetFuelCostQuery,
 } = strapiApi;
