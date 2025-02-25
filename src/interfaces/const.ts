@@ -7,4 +7,5 @@ export interface IConst extends IEntity {
   certification: number;
   companyService: number;
   dangerousGoods: number;
+  eur: number;
 }
