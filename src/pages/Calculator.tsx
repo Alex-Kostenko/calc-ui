@@ -14,6 +14,7 @@ import {
 import { useAppDispatch } from "@/hooks";
 import {
   useGetConstsQuery,
+  useGetFuelCostQuery,
   useGetMeQuery,
   useGetRegistrationPercentQuery,
 } from "@/store/api";
@@ -26,6 +27,7 @@ const Calculator = () => {
 
   const { data: consts } = useGetConstsQuery();
   const { data: registrationPercents } = useGetRegistrationPercentQuery();
+  const { data: fuelCost } = useGetFuelCostQuery();
   useEffect(() => {
     if (data) {
       dispatch(
@@ -33,6 +35,7 @@ const Calculator = () => {
           user: data,
           consts: consts?.data,
           registrationPercents: registrationPercents?.data.values,
+          fuelCost: fuelCost?.data,
         })
       );
     }
