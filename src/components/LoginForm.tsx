@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm: React.FC = () => {
-  const [login, { data, isLoading, isSuccess }] = useLoginMutation();
+  const [login, { data, isLoading, isSuccess, isError }] = useLoginMutation();
 
   const navigate = useNavigate();
 
@@ -19,6 +19,7 @@ const LoginForm: React.FC = () => {
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     setRememberMe(!!values.remember);
+
     login({ identifier: values.email!, password: values.password! });
   };
 
@@ -37,7 +38,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="border rounded p-4 flex flex-col gap-5">
-      <h2 className="text-center text-2xl">Login</h2>
+      <h2 className="text-center text-2xl">Вхід</h2>
       <Form
         name="basic"
         labelCol={{ span: 7 }}
@@ -50,7 +51,7 @@ const LoginForm: React.FC = () => {
         <Form.Item<FieldType>
           label="Пошта"
           name="email"
-          rules={[{ required: true, message: "Please input your email!" }]}
+          rules={[{ required: true, message: "Введіть пошту!" }]}
         >
           <Input />
         </Form.Item>
@@ -58,7 +59,7 @@ const LoginForm: React.FC = () => {
         <Form.Item<FieldType>
           label="Пароль"
           name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
+          rules={[{ required: true, message: "Введіть пароль!" }]}
         >
           <Input.Password />
         </Form.Item>
@@ -76,6 +77,11 @@ const LoginForm: React.FC = () => {
             Вхід
           </Button>
         </Form.Item>
+        {isError && (
+          <p className="text-red-500 text-center">
+            Не правильна пошта та/або пароль
+          </p>
+        )}
       </Form>
     </div>
   );
