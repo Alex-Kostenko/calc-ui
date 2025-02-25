@@ -1,4 +1,5 @@
 import { IConst } from "@/interfaces/const";
+import { IRegistration } from "@/interfaces/registration";
 import {
   IUser,
   IAuction,
@@ -74,6 +75,9 @@ export const strapiApi = createApi({
     getConsts: builder.query<IResponse<IConst>, void>({
       query: () => "const",
     }),
+    getRegistrationPercent: builder.query<IResponse<IRegistration>, void>({
+      query: () => "registration?populate=*",
+    }),
   }),
 });
 
@@ -91,4 +95,5 @@ export const {
   useGetFormulaByNameQuery,
   useGetMeQuery,
   useGetConstsQuery,
+  useGetRegistrationPercentQuery,
 } = strapiApi;
