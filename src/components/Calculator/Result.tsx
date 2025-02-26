@@ -89,12 +89,12 @@ const Result = () => {
 
       <div className="flex flex-col gap-4 px-4">
         <p>ПДВ: {getVat()}</p>
-        <p>Брокер: {carPrice && consts?.broker}</p>
-        <p>Експедиція: {carPrice && consts?.expedition}</p>
-        <p>Доставка до міста Львів: {carPrice && consts?.cityDelivery}</p>
-        <p>Сертифікація: {carPrice && consts?.certification}</p>
+        <p>Брокер: {!!carPrice && consts?.broker}</p>
+        <p>Експедиція: {!!carPrice && consts?.expedition}</p>
+        <p>Доставка до міста Львів: {!!carPrice && consts?.cityDelivery}</p>
+        <p>Сертифікація: {!!carPrice && consts?.certification}</p>
         <p>Постановка на облік: {calculateRegistration()}</p>
-        <p>Послуги компанії: {carPrice && consts?.companyService}</p>
+        <p>Послуги компанії: {!!carPrice && consts?.companyService}</p>
       </div>
 
       <div className="col-span-2 px-4 py-3 text-white bg-blue-600 rounded-b">
