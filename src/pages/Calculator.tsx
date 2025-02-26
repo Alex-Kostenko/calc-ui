@@ -29,7 +29,7 @@ const Calculator = () => {
   const { data: registrationPercents } = useGetRegistrationPercentQuery();
   const { data: fuelCost } = useGetFuelCostQuery();
   useEffect(() => {
-    if (data) {
+    if (data && consts && fuelCost && registrationPercents) {
       dispatch(
         setAll({
           user: data,
@@ -39,7 +39,7 @@ const Calculator = () => {
         })
       );
     }
-  }, [data]);
+  }, [data, consts, registrationPercents, fuelCost, dispatch]);
 
   return (
     <div className="grid lg:grid-cols-2 gap-5 container mx-auto my-10">
