@@ -3,7 +3,7 @@ import { useAppSelector } from ".";
 import { ICoefficient } from "@/interfaces/coefficient";
 
 const dbValuePattern = /^([^:]+)(?::([^:]+))+$/;
-const operations = "()+-*/";
+const operations = "()+-*/><?:";
 
 const isNumber = (str: string): boolean => {
   if (!str) return false;
