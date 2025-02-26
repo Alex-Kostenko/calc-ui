@@ -22,6 +22,7 @@ const Result = () => {
   const [getExciseElectric] = useFormula("excise_electric");
   const [getDutyElectric] = useFormula("duty_electric");
   const [getVat] = useFormula("vat");
+  const [getVatElectric] = useFormula("vat_electric");
 
   const calculateFee = () => {
     if (carPrice && location?.auctions) {
@@ -88,7 +89,7 @@ const Result = () => {
       </div>
 
       <div className="flex flex-col gap-4 px-4">
-        <p>ПДВ: {getVat()}</p>
+        <p>ПДВ: {fuelType === "electric" ? getVatElectric() : getVat()}</p>
         <p>Брокер: {!!carPrice && consts?.broker}</p>
         <p>Експедиція: {!!carPrice && consts?.expedition}</p>
         <p>Доставка до міста Львів: {!!carPrice && consts?.cityDelivery}</p>
