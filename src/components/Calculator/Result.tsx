@@ -23,6 +23,13 @@ const Result = () => {
   const [getDutyElectric] = useFormula("duty_electric");
   const [getVat] = useFormula("vat");
   const [getVatElectric] = useFormula("vat_electric");
+  const [getInsurance] = useFormula("insurance");
+
+  const sum = (args: Array<number | undefined>) => {
+    if (args.every((a) => typeof a === "number"))
+      return "$" + args.reduce((a, c) => a + c, 0);
+    return null;
+  };
 
   const calculateFee = () => {
     if (carPrice && location?.auctions) {
@@ -62,6 +69,14 @@ const Result = () => {
     }
   };
 
+  const calculateSeaDelivery = () => {
+    return (
+      carType?.name &&
+      location?.port &&
+      location?.port.car_types.find((type) => type.name === carType.name)!.price
+    );
+  };
+
   useEffect(() => {
     dispatch(setAll({ auctionFee: calculateFee() }));
   }, [calculateFee]);
@@ -73,15 +88,9 @@ const Result = () => {
       <div className="flex flex-col gap-4 px-4">
         <p>Ціна авто: {carPrice}</p>
         <p>Аукціонний збір: {auctionFee}</p>
-        <p>Страхування: not available</p>
+        <p>Страхування: {getInsurance()}</p>
         <p>Доставка до порту: {location?.price}</p>
-        <p>
-          Ціна морської переправи:{" "}
-          {carType?.name &&
-            location?.port &&
-            location?.port.car_types.find((type) => type.name === carType.name)!
-              .price}
-        </p>
+        <p>Ціна морської переправи: {calculateSeaDelivery()}</p>
         <p>
           Акциз: {fuelType === "electric" ? getExciseElectric() : getExcise()}
         </p>
@@ -99,7 +108,23 @@ const Result = () => {
       </div>
 
       <div className="col-span-2 px-4 py-3 text-white bg-blue-600 rounded-b">
-        Ціна за авто зі США під ключ
+        Ціна за авто зі США під ключ:{" "}
+        {sum([
+          consts?.broker,
+          consts?.certification,
+          consts?.cityDelivery,
+          consts?.companyService,
+          consts?.expedition,
+          carPrice,
+          auctionFee,
+          getInsurance(),
+          location?.price,
+          fuelType === "electric" ? getExciseElectric() : getExcise(),
+          fuelType === "electric" ? getDutyElectric() : getDuty(),
+          fuelType === "electric" ? getVatElectric() : getVat(),
+          calculateRegistration(),
+          calculateSeaDelivery(),
+        ])}
       </div>
     </Container>
   );
