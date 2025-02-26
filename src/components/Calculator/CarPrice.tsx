@@ -20,6 +20,7 @@ const CarPrice = () => {
       <Input
         type="number"
         onChange={(e) => handleSetCarPrise(+e.target.value)}
+        min={1}
       />
     </Container>
   );
