@@ -10,12 +10,9 @@ const AuctionCards = () => {
   const { data, isLoading } = useGetAllAuctionsQuery();
   const dispatch = useAppDispatch();
 
-  const handleSelectAuction = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    const target = event.target as HTMLElement;
-    dispatch(setAuction(target.textContent));
-    setActive(target.textContent);
+  const handleSelectAuction = (auctionName: string) => {
+    dispatch(setAuction(auctionName));
+    setActive(auctionName);
   };
 
   return (
@@ -29,7 +26,7 @@ const AuctionCards = () => {
               data-active={active === auction.name ? true : undefined}
               key={index}
               className="data-[active]:!border-b-blue-600 data-[active]:shadow-md px-7 py-2 bg-main-gray !rounded-none cursor-pointer border-b-4 border-transparent flex flex-col items-center gap-4"
-              onClick={handleSelectAuction}
+              onClick={() => handleSelectAuction(auction.name)}
             >
               <img
                 src={getImageUrl(auction.image)}
