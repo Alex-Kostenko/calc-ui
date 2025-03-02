@@ -85,26 +85,58 @@ const Result = () => {
 
   return (
     <Container className="grid grid-cols-2 gap-5 col-span-2 bg-main-gray text-secondary-gray pt-4 rounded">
-      <div className="flex flex-col gap-4 px-4">
-        <p>Ціна авто: {carPrice}</p>
-        <p>Аукціонний збір: {auctionFee}</p>
-        <p>Страхування: {getInsurance()}</p>
-        <p>Доставка до порту: {location?.price}</p>
-        <p>Ціна морської переправи: {calculateSeaDelivery()}</p>
+      <div className="flex flex-col gap-4 px-4 [&>p]:flex [&>p]:justify-between">
         <p>
-          Акциз: {fuelType === "electric" ? getExciseElectric() : getExcise()}
+          Ціна авто: <span>{carPrice}</span>
         </p>
-        <p>Мито: {fuelType === "electric" ? getDutyElectric() : getDuty()}</p>
+        <p>
+          Аукціонний збір: <span>{auctionFee}</span>
+        </p>
+        <p>
+          Страхування: <span>{getInsurance()}</span>
+        </p>
+        <p>
+          Доставка до порту: <span>{location?.price}</span>
+        </p>
+        <p>
+          Ціна морської переправи: <span>{calculateSeaDelivery()}</span>
+        </p>
+        <p>
+          Акциз:{" "}
+          <span>
+            {fuelType === "electric" ? getExciseElectric() : getExcise()}
+          </span>
+        </p>
+        <p>
+          Мито:{" "}
+          <span>{fuelType === "electric" ? getDutyElectric() : getDuty()}</span>
+        </p>
       </div>
 
-      <div className="flex flex-col gap-4 px-4">
-        <p>ПДВ: {fuelType === "electric" ? getVatElectric() : getVat()}</p>
-        <p>Брокер: {!!carPrice && consts?.broker}</p>
-        <p>Експедиція: {!!carPrice && consts?.expedition}</p>
-        <p>Доставка до міста Львів: {!!carPrice && consts?.cityDelivery}</p>
-        <p>Сертифікація: {!!carPrice && consts?.certification}</p>
-        <p>Постановка на облік: {calculateRegistration()}</p>
-        <p>Послуги компанії: {!!carPrice && consts?.companyService}</p>
+      <div className="flex flex-col gap-4 px-4 [&>p]:flex [&>p]:justify-between">
+        <p>
+          ПДВ:{" "}
+          <span>{fuelType === "electric" ? getVatElectric() : getVat()}</span>
+        </p>
+        <p>
+          Брокер: <span>{!!carPrice && consts?.broker}</span>
+        </p>
+        <p>
+          Експедиція: <span>{!!carPrice && consts?.expedition}</span>
+        </p>
+        <p>
+          Доставка до міста Львів:{" "}
+          <span>{!!carPrice && consts?.cityDelivery}</span>
+        </p>
+        <p>
+          Сертифікація: <span>{!!carPrice && consts?.certification}</span>
+        </p>
+        <p>
+          Постановка на облік: <span>{calculateRegistration()}</span>
+        </p>
+        <p>
+          Послуги компанії: <span>{!!carPrice && consts?.companyService}</span>
+        </p>
       </div>
 
       <div className="col-span-2 px-4 py-3 text-white bg-blue-600 rounded-b">
