@@ -1,10 +1,3 @@
-export enum EFuelType {
-  diesel = "diesel",
-  gasoline = "gasoline",
-  electric = "electric",
-  hybrid = "hybrid",
-}
-
 export type TFuelType = "diesel" | "gasoline" | "electric" | "hybrid";
 
 export interface ICost {
