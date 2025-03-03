@@ -49,12 +49,12 @@ export function useFormula(name: string) {
           }
           if (tokens[0] === "coefficient") {
             const value = user?.coefficient.coef.find(
-              (c) => c.Field === tokens[1]
+              (c) => c.field === tokens[1]
             );
 
-            return value
+            return value && value.value
               ? value?.value * (value?.isPercent ? 0.01 : 1)
-              : "undefined";
+              : "1";
           }
         }
         if (isNumber(token) || operations.includes(token)) {
