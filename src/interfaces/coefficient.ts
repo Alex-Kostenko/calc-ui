@@ -4,7 +4,20 @@ export interface ICoefficient {
 }
 
 export interface ICoef {
-  Field: "auctionFee" | "insurance" | "excise" | "duty" | "vat";
-  value: number;
+  field:
+    | "auctionFee"
+    | "insurance"
+    | "excise"
+    | "duty"
+    | "vat"
+    | "portDelivery"
+    | "cityDelivery"
+    | "seaTransportation"
+    | "broker"
+    | "expedition"
+    | "sertification"
+    | "registration"
+    | "companyServices";
+  value?: number;
   isPercent: boolean;
 }
