@@ -15,7 +15,7 @@ export interface ICoef {
     | "seaTransportation"
     | "broker"
     | "expedition"
-    | "sertification"
+    | "certification"
     | "registration"
     | "companyServices";
   value?: number;
