@@ -24,9 +24,7 @@ const Result = () => {
   const [getDuty] = useFormula("duty");
   const [getExciseElectric] = useFormula("excise_electric");
   const [getDutyElectric] = useFormula("duty_electric");
-  const [getVat, f, init] = useFormula("vat");
-  console.log(f, init);
-
+  const [getVat] = useFormula("vat");
   const [getVatElectric] = useFormula("vat_electric");
   const [getInsurance] = useFormula("insurance");
 
