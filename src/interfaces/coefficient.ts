@@ -1,6 +1,10 @@
 export interface ICoefficient {
-  volume: {
-    value: number;
-    is_percent: boolean;
-  };
+  name: string;
+  coef: ICoef[];
+}
+
+export interface ICoef {
+  Field: "auctionFee" | "insurance" | "excise" | "duty" | "vat";
+  value: number;
+  isPercent: boolean;
 }
