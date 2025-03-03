@@ -30,6 +30,11 @@ const Layout = () => {
       href: "/login",
       onClick: () => {},
     },
+    "/guide": {
+      buttonName: "Головна",
+      href: "/",
+      onClick: () => {},
+    },
   };
 
   return (
