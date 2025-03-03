@@ -1,4 +1,5 @@
-import { ICarType } from "@/interfaces/car.type";
+import { IConst } from "@/interfaces/const";
+import { IRegistration } from "@/interfaces/registration";
 import {
   IUser,
   IAuction,
@@ -6,16 +7,29 @@ import {
   IPort,
   IResponse,
   IState,
+  LoginDto,
+  LoginData,
+  ICarType,
+  IFormula,
+  IFuelCost,
 } from "@interfaces/index";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: import.meta.env.VITE_STRAPI_URL || "http://localhost:1337/api/",
+  prepareHeaders: (headers) => {
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+    return headers;
+  },
+});
+
 export const strapiApi = createApi({
   reducerPath: "strapiApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_STRAPI_URL || "http://localhost:1337/api/",
-    headers: {
-      authorization: "Bearer " + import.meta.env.VITE_STRAPI_TOKEN,
-    },
-  }),
+  baseQuery,
   endpoints: (builder) => ({
     getUser: builder.query<IResponse<IUser>, string>({
       query: (id) => `calculator-users/${id}`,
@@ -38,10 +52,36 @@ export const strapiApi = createApi({
         `ports?filter[locations][documentId]=${locationId}`,
     }),
     getAllAuctions: builder.query<IResponse<IAuction[]>, void>({
-      query: () => "auctions?populate=locations&populate=auction_tax",
+      query: () =>
+        "auctions?populate=locations&populate=auction_tax&populate=image",
     }),
     getAllCarTypes: builder.query<IResponse<ICarType[]>, void>({
       query: () => "car-types?populate=image&populate=packImage",
+    }),
+    getAllFormules: builder.query<IResponse<IFormula[]>, void>({
+      query: () => "formulas?populate=operations",
+    }),
+    getFormulaByName: builder.query<IResponse<IFormula[]>, string>({
+      query: (name) => `formulas?filters[name]=${name}`,
+    }),
+    login: builder.mutation<LoginData, LoginDto>({
+      query: (dto) => ({
+        url: "auth/local",
+        method: "POST",
+        body: dto,
+      }),
+    }),
+    getMe: builder.query<IUser, void>({
+      query: () => "users/me?populate[coefficient][populate]=*",
+    }),
+    getConsts: builder.query<IResponse<IConst>, void>({
+      query: () => "const",
+    }),
+    getRegistrationPercent: builder.query<IResponse<IRegistration>, void>({
+      query: () => "registration?populate=*",
+    }),
+    getFuelCost: builder.query<IResponse<IFuelCost>, void>({
+      query: () => "fuel?populate=*",
     }),
   }),
 });
@@ -55,4 +95,11 @@ export const {
   useGetAllStatesQuery,
   useGetAllAuctionsQuery,
   useGetAllCarTypesQuery,
+  useLoginMutation,
+  useGetAllFormulesQuery,
+  useGetFormulaByNameQuery,
+  useGetMeQuery,
+  useGetConstsQuery,
+  useGetRegistrationPercentQuery,
+  useGetFuelCostQuery,
 } = strapiApi;

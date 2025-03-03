@@ -1,10 +1,18 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: Gothic;
+  src: url("/fonts/gothic.ttf");
+}
+
 @theme {
   --color-main-blue: #1b2032;
   --color-main-gray: #e6e8ed;
   --color-secondary-gray: #5c6770;
   --color-map-blue: rgb(9, 136, 255);
+
+  --animate-pulse: pulse 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --default-font-family: Gothic;
 }
 
 .usa-map__territory {

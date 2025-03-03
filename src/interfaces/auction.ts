@@ -1,4 +1,5 @@
 import { IEntity } from "./entity";
+import { IImage } from "./image";
 import { ILocation } from "./location";
 import { ITax } from "./tax";
 
@@ -10,4 +11,5 @@ export interface IAuction extends IEntity {
   name: string;
   locations: ILocation[];
   auction_tax: AuctionTax;
+  image: IImage;
 }

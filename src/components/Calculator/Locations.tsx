@@ -16,7 +16,7 @@ const Locations = () => {
   };
   return (
     <div className="container mx-auto flex flex-col gap-5">
-      <h3>Location:</h3>
+      <h3>Локація:</h3>
       {!isLoading && location && (
         <Select
           onSelect={handleSetPorts}

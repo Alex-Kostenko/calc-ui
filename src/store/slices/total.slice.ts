@@ -1,14 +1,23 @@
 import { ICarType } from "@/interfaces/car.type";
-import { ILocation, IUser } from "@/interfaces/index";
+import { IConst } from "@/interfaces/const";
+import { EFuelType, IFuelCost, ILocation, IUser } from "@/interfaces/index";
+import { IPercentByValue } from "@/interfaces/registration";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface TotalState {
   location: null | ILocation;
   auctionName: null | string;
   carType?: ICarType;
+  carYear?: number;
+  fuelType?: EFuelType;
+  fuelCost?: IFuelCost;
+  volume?: number;
+  auctionFee?: number;
+  registrationPercents?: IPercentByValue[];
   user?: IUser;
+  consts?: IConst;
 
-  carPrice: null | number;
+  carPrice?: null | number;
   insurance?: number;
   portDeliveryPrice?: number;
   seaTransportingPrice?: number;
@@ -19,14 +28,14 @@ export interface TotalState {
   expedition?: number;
   cityDeliveryPrice?: number;
   certification?: number;
-  registration?: number;
+  // registration?: number;
   companyServices?: number;
 }
 
 const initialState: TotalState = {
   location: null,
   auctionName: null,
-  carPrice: null,
+  carPrice: undefined,
 };
 
 export const totalSlice = createSlice({

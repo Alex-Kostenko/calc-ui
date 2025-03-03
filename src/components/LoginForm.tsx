@@ -1,17 +1,11 @@
-import { useAppDispatch } from "@/hooks";
-import { useGetAllUsersQuery } from "@/store/api";
-import { setAll } from "@/store/slices/total.slice";
+import { useLoginMutation } from "@/store/api";
 import type { FormProps } from "antd";
 import { Button, Checkbox, Form, Input } from "antd";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
-//   console.log("Failed:", errorInfo);
-// };
-
 const LoginForm: React.FC = () => {
-  const { data } = useGetAllUsersQuery();
-  const dispatch = useAppDispatch();
+  const [login, { data, isLoading, isSuccess, isError }] = useLoginMutation();
 
   const navigate = useNavigate();
 
@@ -21,51 +15,51 @@ const LoginForm: React.FC = () => {
     remember?: string;
   };
 
+  const [rememberMe, setRememberMe] = useState(false);
+
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    //     if (values.remember) {
-    //       Object.entries(values).forEach(([key, value]) => {
-    //         localStorage.setItem(key, JSON.stringify(value));
-    //       });
-    //     }
-    //
-    //     Object.entries(values).forEach(([key, value]) => {
-    //       sessionStorage.setItem(key, JSON.stringify(value));
-    //     });
+    setRememberMe(!!values.remember);
 
-    const user = data?.data.find(
-      (user) => user.email === values.email && user.password === values.password
-    );
-
-    if (user) {
-      dispatch(setAll({ user }));
-      navigate("/");
-    }
+    login({ identifier: values.email!, password: values.password! });
   };
+
+  useEffect(() => {
+    if (!isLoading && isSuccess && data) {
+      const { user, jwt } = data;
+      if (user) {
+        if (rememberMe) {
+          localStorage.setItem("token", jwt);
+        }
+        sessionStorage.setItem("token", jwt);
+        navigate("/");
+      }
+    }
+  }, [isSuccess, data, rememberMe, navigate, isLoading]);
 
   return (
     <div className="border rounded p-4 flex flex-col gap-5">
-      <h2 className="text-center text-2xl">Login</h2>
+      <h2 className="text-center text-2xl">Вхід</h2>
       <Form
         name="basic"
-        labelCol={{ span: 8 }}
+        labelCol={{ span: 7 }}
         wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
+        style={{ maxWidth: 800 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        autoComplete="off"
+        autoComplete="on"
       >
         <Form.Item<FieldType>
-          label="Email"
+          label="Пошта"
           name="email"
-          rules={[{ required: true, message: "Please input your email!" }]}
+          rules={[{ required: true, message: "Введіть пошту!" }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item<FieldType>
-          label="Password"
+          label="Пароль"
           name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
+          rules={[{ required: true, message: "Введіть пароль!" }]}
         >
           <Input.Password />
         </Form.Item>
@@ -75,14 +69,19 @@ const LoginForm: React.FC = () => {
           valuePropName="checked"
           label={null}
         >
-          <Checkbox>Remember me</Checkbox>
+          <Checkbox>Запам'ятати мене</Checkbox>
         </Form.Item>
 
         <Form.Item label={null}>
-          <Button type="primary" htmlType="submit">
-            Submit
+          <Button type="primary" htmlType="submit" className="w-2/3">
+            Вхід
           </Button>
         </Form.Item>
+        {isError && (
+          <p className="text-red-500 text-center">
+            Не правильна пошта та/або пароль
+          </p>
+        )}
       </Form>
     </div>
   );

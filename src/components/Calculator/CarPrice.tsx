@@ -7,15 +7,20 @@ const CarPrice = () => {
   const dispatch = useAppDispatch();
 
   const handleSetCarPrise = (value: number) => {
-    dispatch(setAll({ carPrice: value }));
+    dispatch(
+      setAll({
+        carPrice: value,
+      })
+    );
   };
 
   return (
     <Container>
-      <h3>Car Price:</h3>
+      <h3>Ціна авто:</h3>
       <Input
         type="number"
         onChange={(e) => handleSetCarPrise(+e.target.value)}
+        min={1}
       />
     </Container>
   );

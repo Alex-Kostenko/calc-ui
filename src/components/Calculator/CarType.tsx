@@ -14,7 +14,7 @@ const CarType = () => {
   };
   return (
     <Container>
-      <h3>Car Type:</h3>
+      <h3>Тип авто:</h3>
       <div className="flex flex-row flex-wrap items-center gap-5">
         {!isLoading &&
           data &&
