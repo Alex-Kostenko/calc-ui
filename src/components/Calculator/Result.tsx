@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Container } from "@/components";
 import { useFormula } from "@/hooks/useFormula";
 import { setAll } from "@/store/slices/total.slice";
+import { ICoef } from "@/interfaces/coefficient";
 import { useEffect } from "react";
 
 const Result = () => {
@@ -13,6 +14,8 @@ const Result = () => {
     consts,
     fuelType,
     registrationPercents,
+    auctionFee,
+    user,
   } = useAppSelector((state) => state.total);
 
   const dispatch = useAppDispatch();
@@ -30,6 +33,19 @@ const Result = () => {
       return "$" + args.reduce((a, c) => a + c, 0);
     return null;
   };
+
+  function getCoef(coefName: ICoef["field"]): number {
+    return user?.coefficient.coef.find((c) => c.field === coefName)?.value || 1;
+  }
+
+  function calculate(
+    value: CallableFunction | number | undefined,
+    coefName: ICoef["field"]
+  ) {
+    const res: number | undefined =
+      typeof value === "function" ? value() : value;
+    return res ? res * getCoef(coefName) : res;
+  }
 
   const calculateFee = () => {
     if (carPrice && location?.auctions) {
@@ -54,9 +70,16 @@ const Result = () => {
       }
 
       const tax = taxes[taxes?.length - 1];
-      return Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
+
+      const res = Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
+      const coef = getCoef("auctionFee");
+      dispatch(setAll({ auctionFee: res ? res * coef : res }));
     }
   };
+
+  useEffect(() => {
+    calculateFee();
+  }, [carPrice, location?.auctions]);
 
   const calculateRegistration = () => {
     if (carPrice && registrationPercents) {
@@ -77,12 +100,6 @@ const Result = () => {
     );
   };
 
-  useEffect(() => {
-    dispatch(setAll({ auctionFee: calculateFee() }));
-  }, [calculateFee]);
-
-  const auctionFee = calculateFee();
-
   return (
     <Container className="grid grid-cols-2 gap-5 col-span-2 bg-main-gray text-secondary-gray pt-4 rounded">
       <div className="flex flex-col space-y-4 justify-between px-4 [&>p]:flex [&>p]:justify-between">
@@ -93,33 +110,49 @@ const Result = () => {
           Аукціонний збір: <span>{auctionFee}</span>
         </p>
         <p>
-          Страхування: <span>{getInsurance()}</span>
+          Страхування: <span>{getInsurance() * getCoef("insurance")}</span>
         </p>
         <p>
-          Доставка до порту: <span>{location?.price}</span>
+          Доставка до порту:{" "}
+          <span>{calculate(location?.price, "portDelivery")}</span>
         </p>
         <p>
-          Ціна морської переправи: <span>{calculateSeaDelivery()}</span>
+          Ціна морської переправи:{" "}
+          <span>{calculate(calculateSeaDelivery, "seaTransportation")}</span>
         </p>
         <p>
           Акциз:{" "}
           <span>
-            {fuelType === "electric" ? getExciseElectric() : getExcise()}
+            {calculate(
+              fuelType === "electric" ? getExciseElectric() : getExcise(),
+              "excise"
+            )}
           </span>
         </p>
         <p>
           Мито:{" "}
-          <span>{fuelType === "electric" ? getDutyElectric() : getDuty()}</span>
+          <span>
+            {calculate(
+              fuelType === "electric" ? getDutyElectric() : getDuty(),
+              "duty"
+            )}
+          </span>
         </p>
       </div>
 
       <div className="flex flex-col space-y-4 justify-between px-4 [&>p]:flex [&>p]:justify-between">
         <p>
           ПДВ:{" "}
-          <span>{fuelType === "electric" ? getVatElectric() : getVat()}</span>
+          <span>
+            {calculate(
+              fuelType === "electric" ? getVatElectric() : getVat(),
+              "vat"
+            )}
+          </span>
         </p>
         <p>
-          Брокер: <span>{!!carPrice && consts?.broker}</span>
+          Брокер:{" "}
+          <span>{!!carPrice && calculate(consts?.broker, "broker")}</span>
         </p>
         {(fuelType === "electric" || fuelType === "hybrid") && (
           <p>
@@ -127,20 +160,32 @@ const Result = () => {
           </p>
         )}
         <p>
-          Експедиція: <span>{!!carPrice && consts?.expedition}</span>
+          Експедиція:{" "}
+          <span>
+            {!!carPrice && calculate(consts?.expedition, "expedition")}
+          </span>
         </p>
         <p>
           Доставка до міста Львів:{" "}
-          <span>{!!carPrice && consts?.cityDelivery}</span>
+          <span>
+            {!!carPrice && calculate(consts?.cityDelivery, "cityDelivery")}
+          </span>
         </p>
         <p>
-          Сертифікація: <span>{!!carPrice && consts?.certification}</span>
+          Сертифікація:{" "}
+          <span>
+            {!!carPrice && calculate(consts?.certification, "certification")}
+          </span>
         </p>
         <p>
-          Постановка на облік: <span>{calculateRegistration()}</span>
+          Постановка на облік:{" "}
+          <span>{calculate(calculateRegistration, "registration")}</span>
         </p>
         <p>
-          Послуги компанії: <span>{!!carPrice && consts?.companyService}</span>
+          Послуги компанії:{" "}
+          <span>
+            {!!carPrice && calculate(consts?.companyService, "companyServices")}
+          </span>
         </p>
       </div>
 

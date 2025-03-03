@@ -3,6 +3,7 @@ import Layout from "@layouts/Layout";
 import Login from "@pages/Login";
 import Register from "@pages/Register";
 import Calculator from "@pages/Calculator";
+import Guide from "@pages/Guide";
 import ProtectedRoute from "@components/PortectedRoute";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/guide" element={<Guide />} />
       </Route>
     </Routes>
   );
