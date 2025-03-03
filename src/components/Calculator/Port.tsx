@@ -4,8 +4,9 @@ import Container from "../Container";
 const Port = () => {
   const location = useAppSelector((state) => state.total.location);
   return (
-    <Container>
-      <h3>Порт: {location?.port.name}</h3>
+    <Container className="flex flex-col gap-5">
+      <h3>Порт: </h3>
+      <h3>{location?.port.name}</h3>
     </Container>
   );
 };
