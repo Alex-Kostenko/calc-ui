@@ -1,6 +1,5 @@
 import { useGetFormulaByNameQuery } from "@/store/api";
 import { useAppSelector } from ".";
-import { ICoefficient } from "@/interfaces/coefficient";
 
 const dbValuePattern = /^([^:]+)(?::([^:]+))+$/;
 const operations = "()+-*/><?:";
@@ -49,10 +48,12 @@ export function useFormula(name: string) {
             return `${ui[tokens[1] as keyof typeof ui]()}`;
           }
           if (tokens[0] === "coefficient") {
-            const value = user?.coefficient[tokens[1] as keyof ICoefficient];
+            const value = user?.coefficient.coef.find(
+              (c) => c.Field === tokens[1]
+            );
 
             return value
-              ? value?.value * (value?.is_percent ? 0.01 : 1)
+              ? value?.value * (value?.isPercent ? 0.01 : 1)
               : "undefined";
           }
         }
