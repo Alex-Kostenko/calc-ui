@@ -29,12 +29,18 @@ const LoginForm: React.FC = () => {
       if (user) {
         if (rememberMe) {
           localStorage.setItem("token", jwt);
+        } else {
+          sessionStorage.setItem("token", jwt);
         }
-        sessionStorage.setItem("token", jwt);
         navigate("/");
       }
     }
   }, [isSuccess, data, rememberMe, navigate, isLoading]);
+
+  useEffect(() => {
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+  }, []);
 
   return (
     <div className="border rounded p-4 flex flex-col gap-5">
