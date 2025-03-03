@@ -5,4 +5,6 @@ export interface ICost {
   min: number;
   max: number;
 }
-export interface IFuelCost extends Record<TFuelType, ICost> {}
+export interface IFuelCost extends Record<TFuelType, ICost> {
+  _: never;
+}
