@@ -35,6 +35,9 @@ const Locations = () => {
       <h3>Локація:</h3>
       {!isLoading && location && (
         <Select
+          showSearch
+          placeholder="Location"
+          optionFilterProp="label"
           onSelect={handleSetPorts}
           className="w-full"
           allowClear

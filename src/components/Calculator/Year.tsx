@@ -17,10 +17,13 @@ const Year = () => {
     <Container>
       <h3>Рік:</h3>
       <Select
+        showSearch
+        placeholder="Year"
+        optionFilterProp="label"
         onSelect={handleSelect}
         options={Array.from({ length: selectLength })
           .map((_, i) => ({
-            title: String(startYear + i),
+            label: String(startYear + i),
             value: startYear + i,
           }))
           .reverse()}
