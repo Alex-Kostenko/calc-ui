@@ -15,6 +15,10 @@ const AuctionCards = () => {
     setActive(auctionName);
   };
 
+  if (!data?.data.length) {
+    return <p>Аукціони не знайдено. Заповніть таблицю</p>;
+  }
+
   return (
     <Container>
       <h3>Аукціон:</h3>

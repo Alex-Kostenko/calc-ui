@@ -39,7 +39,7 @@ const Calculator = () => {
         })
       );
     }
-  }, [user, consts, registrationPercents, fuelCost, dispatch]);
+  }, [consts, registrationPercents, fuelCost, dispatch]);
 
   if (!user) {
     return <>Loading...</>;

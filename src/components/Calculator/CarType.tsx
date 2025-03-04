@@ -12,6 +12,10 @@ const CarType = () => {
   const handleSelect = (type: ICarType) => {
     dispatch(setAll({ carType: type }));
   };
+
+  if (!data?.data.length) {
+    return <p>Типи авто не знайдено. Заповніть таблицю</p>;
+  }
   return (
     <Container>
       <h3>Тип авто:</h3>
