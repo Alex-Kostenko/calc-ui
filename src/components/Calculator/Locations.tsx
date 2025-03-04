@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useGetAllLocationsQuery } from "@/store/api";
 import { setAll } from "@/store/slices/total.slice";
 import { Select } from "antd";
+import Container from "../Container";
 
 const Locations = () => {
   const { data, isLoading } = useGetAllLocationsQuery();
@@ -15,7 +16,7 @@ const Locations = () => {
     );
   };
   return (
-    <div className="container mx-auto flex flex-col gap-5">
+    <Container>
       <h3>Локація:</h3>
       {!isLoading && location && (
         <Select
@@ -31,7 +32,7 @@ const Locations = () => {
           }
         ></Select>
       )}
-    </div>
+    </Container>
   );
 };
 
