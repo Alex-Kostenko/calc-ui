@@ -15,13 +15,14 @@ const CarType = () => {
   return (
     <Container>
       <h3>Тип авто:</h3>
-      <div className="flex flex-row flex-wrap items-center gap-5">
+      {/* flex flex-row flex-wrap */}
+      <div className="grid 2xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 items-center gap-5">
         {!isLoading &&
           data &&
           data.data.map((carType) => (
             <div
               data-active={currentType && currentType?.name === carType.name}
-              className="bg-main-gray flex flex-col gap-5 items-center data-[active='true']:!border-b-blue-600 data-[active]:shadow-md p-2 bg-main-gray !rounded-none cursor-pointer border-b-4 border-transparent"
+              className="flex flex-col gap-5 items-center data-[active='true']:!border-b-blue-600 data-[active]:shadow-md p-2 bg-main-gray !rounded-none cursor-pointer border-b-4 border-transparent"
               onClick={() => handleSelect(carType)}
               key={carType.name}
             >
