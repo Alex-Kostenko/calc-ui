@@ -28,7 +28,7 @@ const Result = () => {
   const [getVatElectric] = useFormula("vat_electric");
   const [getInsurance] = useFormula("insurance");
 
-  const sum = (args: Array<number | undefined>) => {
+  const sum = (args: Array<number | undefined | null>) => {
     if (args.every((a) => typeof a === "number"))
       return "$" + args.reduce((a, c) => a + c, 0);
     return null;
@@ -44,7 +44,12 @@ const Result = () => {
   ) {
     const res: number | undefined =
       typeof value === "function" ? value() : value;
-    return res ? res * getCoef(coefName) : res;
+    const coef = user?.coefficient.coef.find((c) => c.field === coefName);
+    return res
+      ? coef?.isPercent
+        ? res * (coef?.value || 1)
+        : res + (coef?.value || 1)
+      : res;
   }
 
   const calculateFee = () => {
@@ -106,7 +111,7 @@ const Result = () => {
           Аукціонний збір: <span>{auctionFee}</span>
         </p>
         <p>
-          Страхування: <span>{getInsurance() * getCoef("insurance")}</span>
+          Страхування: <span>{calculate(getInsurance(), "insurance")}</span>
         </p>
         <p>
           Доставка до порту:{" "}
@@ -188,20 +193,29 @@ const Result = () => {
       <div className="col-span-2 px-4 py-3 text-white bg-blue-600 rounded-b">
         Ціна за авто зі США під ключ:{" "}
         {sum([
-          consts?.broker,
-          consts?.certification,
-          consts?.cityDelivery,
-          consts?.companyService,
-          consts?.expedition,
+          calculate(consts?.broker, "broker"),
+          calculate(consts?.certification, "certification"),
+          calculate(consts?.cityDelivery, "cityDelivery"),
+          calculate(consts?.companyService, "companyServices"),
+          calculate(consts?.expedition, "expedition"),
           carPrice,
-          auctionFee,
-          getInsurance(),
-          location?.price,
-          fuelType === "electric" ? getExciseElectric() : getExcise(),
-          fuelType === "electric" ? getDutyElectric() : getDuty(),
-          fuelType === "electric" ? getVatElectric() : getVat(),
-          calculateRegistration(),
-          calculateSeaDelivery(),
+          calculate(auctionFee, "auctionFee"),
+          calculate(getInsurance(), "insurance"),
+          calculate(location?.price, "portDelivery"),
+          calculate(
+            fuelType === "electric" ? getExciseElectric() : getExcise(),
+            "excise"
+          ),
+          calculate(
+            fuelType === "electric" ? getDutyElectric() : getDuty(),
+            "duty"
+          ),
+          calculate(
+            fuelType === "electric" ? getVatElectric() : getVat(),
+            "vat"
+          ),
+          calculate(calculateRegistration(), "registration"),
+          calculate(calculateSeaDelivery(), "seaTransportation"),
         ])}
       </div>
     </Container>
