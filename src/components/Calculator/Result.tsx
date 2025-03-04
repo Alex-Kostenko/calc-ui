@@ -4,8 +4,9 @@ import { useFormula } from "@/hooks/useFormula";
 import { setAll } from "@/store/slices/total.slice";
 import { ICoef } from "@/interfaces/coefficient";
 import { useEffect } from "react";
+import { IUser } from "@/interfaces";
 
-const Result = () => {
+const Result = ({ user }: { user: IUser }) => {
   const {
     carPrice,
     location,
@@ -15,7 +16,6 @@ const Result = () => {
     fuelType,
     registrationPercents,
     auctionFee,
-    user,
   } = useAppSelector((state) => state.total);
 
   const dispatch = useAppDispatch();
@@ -34,22 +34,14 @@ const Result = () => {
     return null;
   };
 
-  function getCoef(coefName: ICoef["field"]): number {
-    return user?.coefficient.coef.find((c) => c.field === coefName)?.value || 1;
-  }
+  function calculate(value: number | undefined, coefName: ICoef["field"]) {
+    if (!value) return "";
 
-  function calculate(
-    value: CallableFunction | number | undefined,
-    coefName: ICoef["field"]
-  ) {
-    const res: number | undefined =
-      typeof value === "function" ? value() : value;
-    const coef = user?.coefficient.coef.find((c) => c.field === coefName);
-    return res
-      ? coef?.isPercent
-        ? res * (coef?.value || 1)
-        : res + (coef?.value || 1)
-      : "";
+    const coef = user.coefficient.coef.find((c) => c.field === coefName);
+
+    if (!coef) return value;
+
+    return coef.isPercent ? value * coef.value : value + coef.value;
   }
 
   const calculateFee = () => {
@@ -81,7 +73,7 @@ const Result = () => {
   useEffect(() => {
     dispatch(
       setAll({
-        auctionFee: calculate(calculateFee(), "auctionFee") || undefined,
+        auctionFee: calculateFee(),
       })
     );
   }, [carPrice, location?.auctions]);
@@ -112,10 +104,11 @@ const Result = () => {
           Ціна авто: <span>{"$" + (carPrice || "")}</span>
         </p>
         <p>
-          Аукціонний збір: <span>{"$" + (auctionFee || "")}</span>
+          Аукціонний збір:{" "}
+          <span>{"$" + (calculate(calculateFee(), "auctionFee") || "")}</span>
         </p>
         <p>
-          Страхування:{" "}
+          Страхування:
           <span>{"$" + calculate(getInsurance(), "insurance")}</span>
         </p>
         <p>
@@ -125,7 +118,7 @@ const Result = () => {
         <p>
           Ціна морської переправи:{" "}
           <span>
-            {"$" + calculate(calculateSeaDelivery, "seaTransportation")}
+            {"$" + calculate(calculateSeaDelivery(), "seaTransportation")}
           </span>
         </p>
         <p>
@@ -192,7 +185,9 @@ const Result = () => {
         </p>
         <p>
           Постановка на облік:{" "}
-          <span>{"$" + calculate(calculateRegistration, "registration")}</span>
+          <span>
+            {"$" + calculate(calculateRegistration(), "registration")}
+          </span>
         </p>
         <p>
           Послуги компанії:{" "}
