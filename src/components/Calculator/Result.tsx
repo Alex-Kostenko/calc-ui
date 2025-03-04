@@ -56,13 +56,11 @@ const Result = () => {
         return undefined;
       }
 
-      const index = taxes.findIndex(
-        (tax, index, all_taxes) =>
-          tax.threshold >= carPrice && all_taxes[index - 1].tax
-      );
+      const index = taxes.findIndex((tax) => tax.threshold >= carPrice);
 
       if (index && index > 0) {
         const tax = taxes[index - 1];
+
         return Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
       } else if (index && index === 0) {
         const tax = taxes[index];
@@ -71,14 +69,12 @@ const Result = () => {
 
       const tax = taxes[taxes?.length - 1];
 
-      const res = Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
-      const coef = getCoef("auctionFee");
-      dispatch(setAll({ auctionFee: res ? res * coef : res }));
+      return Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
     }
   };
 
   useEffect(() => {
-    calculateFee();
+    dispatch(setAll({ auctionFee: calculate(calculateFee(), "auctionFee") }));
   }, [carPrice, location?.auctions]);
 
   const calculateRegistration = () => {
