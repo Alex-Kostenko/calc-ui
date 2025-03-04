@@ -18,6 +18,6 @@ export interface ICoef {
     | "certification"
     | "registration"
     | "companyServices";
-  value?: number;
+  value: number;
   isPercent: boolean;
 }
