@@ -3,7 +3,6 @@ import { IImage } from "./image";
 
 export interface ICarType extends IEntity {
   name: TCarTypes;
-  price: number;
   image: IImage;
   packImage: IImage;
 }
