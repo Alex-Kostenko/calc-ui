@@ -84,7 +84,7 @@ const Result = () => {
   const auctionFee = calculateFee();
 
   return (
-    <Container className="grid grid-cols-2 gap-5 col-span-2 bg-main-gray text-secondary-gray pt-4 rounded">
+    <Container className="grid grid-cols-2 gap-5 lg:col-span-2 bg-main-gray text-secondary-gray pt-4 rounded">
       <div className="flex flex-col space-y-4 justify-between px-4 [&>p]:flex [&>p]:justify-between">
         <p>
           Ціна авто: <span>{carPrice}</span>
