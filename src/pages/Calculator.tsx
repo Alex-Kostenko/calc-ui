@@ -23,23 +23,27 @@ import { useEffect } from "react";
 
 const Calculator = () => {
   const dispatch = useAppDispatch();
-  const { data } = useGetMeQuery();
+  const { data: user } = useGetMeQuery();
 
   const { data: consts } = useGetConstsQuery();
   const { data: registrationPercents } = useGetRegistrationPercentQuery();
   const { data: fuelCost } = useGetFuelCostQuery();
+
   useEffect(() => {
-    if (data && consts && fuelCost && registrationPercents) {
+    if (consts && fuelCost && registrationPercents) {
       dispatch(
         setAll({
-          user: data,
           consts: consts?.data,
           registrationPercents: registrationPercents?.data.values,
           fuelCost: fuelCost?.data,
         })
       );
     }
-  }, [data, consts, registrationPercents, fuelCost, dispatch]);
+  }, [user, consts, registrationPercents, fuelCost, dispatch]);
+
+  if (!user) {
+    return <>Loading...</>;
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 container mx-auto my-10">
@@ -57,7 +61,7 @@ const Calculator = () => {
         <Map />
         <CarContainer />
       </div>
-      {data && <Result />}
+      <Result user={user} />
     </div>
   );
 };
