@@ -13,8 +13,8 @@ const FuelType = () => {
   const dispatch = useAppDispatch();
 
   const types: FuelSelect[] = [
-    { label: "Дизель", value: "diesel" },
     { label: "Бензин", value: "gasoline" },
+    { label: "Дизель", value: "diesel" },
     { label: "Електро", value: "electric" },
     { label: "Гібрид", value: "hybrid" },
   ];
