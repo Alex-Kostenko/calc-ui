@@ -28,7 +28,7 @@ const Result = () => {
   const [getVatElectric] = useFormula("vat_electric");
   const [getInsurance] = useFormula("insurance");
 
-  const sum = (args: Array<number | undefined | null>) => {
+  const sum = (args: Array<number | undefined | null | "">) => {
     if (args.every((a) => typeof a === "number"))
       return "$" + args.reduce((a, c) => a + c, 0);
     return null;
@@ -49,7 +49,7 @@ const Result = () => {
       ? coef?.isPercent
         ? res * (coef?.value || 1)
         : res + (coef?.value || 1)
-      : res;
+      : "";
   }
 
   const calculateFee = () => {
@@ -79,7 +79,11 @@ const Result = () => {
   };
 
   useEffect(() => {
-    dispatch(setAll({ auctionFee: calculate(calculateFee(), "auctionFee") }));
+    dispatch(
+      setAll({
+        auctionFee: calculate(calculateFee(), "auctionFee") || undefined,
+      })
+    );
   }, [carPrice, location?.auctions]);
 
   const calculateRegistration = () => {
@@ -105,38 +109,43 @@ const Result = () => {
     <Container className="grid grid-cols-2 gap-5 lg:col-span-2 bg-main-gray text-secondary-gray pt-4 rounded">
       <div className="flex flex-col space-y-4 justify-between px-4 [&>p]:flex [&>p]:justify-between">
         <p>
-          Ціна авто: <span>{carPrice}</span>
+          Ціна авто: <span>{"$" + (carPrice || "")}</span>
         </p>
         <p>
-          Аукціонний збір: <span>{auctionFee}</span>
+          Аукціонний збір: <span>{"$" + (auctionFee || "")}</span>
         </p>
         <p>
-          Страхування: <span>{calculate(getInsurance(), "insurance")}</span>
+          Страхування:{" "}
+          <span>{"$" + calculate(getInsurance(), "insurance")}</span>
         </p>
         <p>
           Доставка до порту:{" "}
-          <span>{calculate(location?.price, "portDelivery")}</span>
+          <span>{"$" + calculate(location?.price, "portDelivery")}</span>
         </p>
         <p>
           Ціна морської переправи:{" "}
-          <span>{calculate(calculateSeaDelivery, "seaTransportation")}</span>
+          <span>
+            {"$" + calculate(calculateSeaDelivery, "seaTransportation")}
+          </span>
         </p>
         <p>
           Акциз:{" "}
           <span>
-            {calculate(
-              fuelType === "electric" ? getExciseElectric() : getExcise(),
-              "excise"
-            )}
+            {"$" +
+              calculate(
+                fuelType === "electric" ? getExciseElectric() : getExcise(),
+                "excise"
+              )}
           </span>
         </p>
         <p>
           Мито:{" "}
           <span>
-            {calculate(
-              fuelType === "electric" ? getDutyElectric() : getDuty(),
-              "duty"
-            )}
+            {"$" +
+              calculate(
+                fuelType === "electric" ? getDutyElectric() : getDuty(),
+                "duty"
+              )}
           </span>
         </p>
       </div>
@@ -145,47 +154,51 @@ const Result = () => {
         <p>
           ПДВ:{" "}
           <span>
-            {calculate(
-              fuelType === "electric" ? getVatElectric() : getVat(),
-              "vat"
-            )}
+            {"$" +
+              calculate(
+                fuelType === "electric" ? getVatElectric() : getVat(),
+                "vat"
+              )}
           </span>
         </p>
         <p>
           Брокер:{" "}
-          <span>{!!carPrice && calculate(consts?.broker, "broker")}</span>
+          <span>{!!carPrice && "$" + calculate(consts?.broker, "broker")}</span>
         </p>
         {(fuelType === "electric" || fuelType === "hybrid") && (
           <p>
-            Небезпечний вантаж: <span>{consts?.dangerousGoods}</span>
+            Небезпечний вантаж: <span>{"$" + consts?.dangerousGoods}</span>
           </p>
         )}
         <p>
           Експедиція:{" "}
           <span>
-            {!!carPrice && calculate(consts?.expedition, "expedition")}
+            {!!carPrice && "$" + calculate(consts?.expedition, "expedition")}
           </span>
         </p>
         <p>
           Доставка до міста Львів:{" "}
           <span>
-            {!!carPrice && calculate(consts?.cityDelivery, "cityDelivery")}
+            {!!carPrice &&
+              "$" + calculate(consts?.cityDelivery, "cityDelivery")}
           </span>
         </p>
         <p>
           Сертифікація:{" "}
           <span>
-            {!!carPrice && calculate(consts?.certification, "certification")}
+            {!!carPrice &&
+              "$" + calculate(consts?.certification, "certification")}
           </span>
         </p>
         <p>
           Постановка на облік:{" "}
-          <span>{calculate(calculateRegistration, "registration")}</span>
+          <span>{"$" + calculate(calculateRegistration, "registration")}</span>
         </p>
         <p>
           Послуги компанії:{" "}
           <span>
-            {!!carPrice && calculate(consts?.companyService, "companyServices")}
+            {!!carPrice &&
+              "$" + calculate(consts?.companyService, "companyServices")}
           </span>
         </p>
       </div>
