@@ -24,11 +24,22 @@ const Locations = () => {
     setValue(locationName);
   };
 
-  const clear = () => setValue(null);
+  const clear = () => {
+    setValue(null);
+    dispatch(
+      setAll({
+        location: null,
+      })
+    );
+  };
 
   useEffect(() => {
     clear();
   }, [auctionName]);
+
+  if (!data?.data.length) {
+    return <p>Локації не знайдено. Заповніть таблицю</p>;
+  }
 
   return (
     <Container>

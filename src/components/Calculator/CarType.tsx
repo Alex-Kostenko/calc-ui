@@ -12,6 +12,11 @@ const CarType = () => {
   const handleSelect = (type: ICarType) => {
     dispatch(setAll({ carType: type }));
   };
+
+  if (!data?.data.length) {
+    return <p>Типи авто не знайдено. Заповніть таблицю</p>;
+  }
+
   return (
     <Container>
       <h3>Тип авто:</h3>
@@ -27,7 +32,7 @@ const CarType = () => {
               key={carType.name}
             >
               <img src={getImageUrl(carType.image)} alt={carType.name} />
-              <p>{carType.name}</p>
+              <p>{carType.label || carType.name}</p>
             </div>
           ))}
       </div>

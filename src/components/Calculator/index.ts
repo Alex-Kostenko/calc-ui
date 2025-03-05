@@ -9,3 +9,4 @@ export { default as Map } from "./Map";
 export { default as Result } from "./Result";
 export { default as CarType } from "./CarType";
 export { default as CarContainer } from "./CarContainer";
+export { default as Sublot } from "./Sublot";

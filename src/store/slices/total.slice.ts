@@ -16,6 +16,7 @@ export interface TotalState {
   registrationPercents?: IPercentByValue[];
   user?: IUser;
   consts?: IConst;
+  isSublot?: boolean;
 
   carPrice?: null | number;
   insurance?: number;
