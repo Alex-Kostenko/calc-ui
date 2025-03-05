@@ -8,4 +8,5 @@ export interface IConst extends IEntity {
   companyService: number;
   dangerousGoods: number;
   eur: number;
+  sublot: number;
 }
