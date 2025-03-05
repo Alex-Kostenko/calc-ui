@@ -16,6 +16,7 @@ const Result = ({ user }: { user: IUser }) => {
     fuelType,
     registrationPercents,
     auctionFee,
+    isSublot,
   } = useAppSelector((state) => state.total);
 
   const dispatch = useAppDispatch();
@@ -121,6 +122,11 @@ const Result = ({ user }: { user: IUser }) => {
             {"$" + calculate(calculateSeaDelivery(), "seaTransportation")}
           </span>
         </p>
+        {isSublot && (
+          <p>
+            Sublot: <span>{"$" + consts?.sublot}</span>
+          </p>
+        )}
         <p>
           Акциз:{" "}
           <span>
@@ -224,6 +230,7 @@ const Result = ({ user }: { user: IUser }) => {
           ),
           calculate(calculateRegistration(), "registration"),
           calculate(calculateSeaDelivery(), "seaTransportation"),
+          isSublot ? consts?.sublot : 0,
         ])}
       </div>
     </Container>
