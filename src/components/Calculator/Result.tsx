@@ -36,7 +36,7 @@ const Result = ({ user }: { user: IUser }) => {
   };
 
   function calculate(value: number | undefined, coefName: ICoef["field"]) {
-    if (!value) return "";
+    if (!value && value !== 0) return "";
 
     const coef = user.coefficient.coef.find((c) => c.field === coefName);
 
@@ -231,6 +231,9 @@ const Result = ({ user }: { user: IUser }) => {
           calculate(calculateRegistration(), "registration"),
           calculate(calculateSeaDelivery(), "seaTransportation"),
           isSublot ? consts?.sublot : 0,
+          fuelType === "electric" || fuelType === "hybrid"
+            ? consts?.dangerousGoods
+            : 0,
         ])}
       </div>
     </Container>
