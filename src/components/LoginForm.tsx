@@ -1,6 +1,6 @@
 import { useLoginMutation } from "@/store/api";
 import type { FormProps } from "antd";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, Space } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -43,13 +43,12 @@ const LoginForm: React.FC = () => {
   }, []);
 
   return (
-    <div className="border rounded p-4 flex flex-col gap-5">
+    <div className="shadow-form sm:mx-0 mx-4 p-[30px] pb-6 rounded-[30px] flex flex-col gap-5 bg-white -translate-y-2/5">
       <h2 className="text-center text-2xl">Вхід</h2>
       <Form
         name="basic"
         labelCol={{ span: 7 }}
         wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 800 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         autoComplete="on"
@@ -74,14 +73,29 @@ const LoginForm: React.FC = () => {
           name="remember"
           valuePropName="checked"
           label={null}
+          className="w-fit"
         >
           <Checkbox>Запам'ятати мене</Checkbox>
         </Form.Item>
 
-        <Form.Item label={null}>
-          <Button type="primary" htmlType="submit" className="w-2/3">
-            Вхід
-          </Button>
+        <Form.Item
+          label={null}
+          wrapperCol={{ offset: 0, span: 16 }}
+          className="flex justify-center"
+        >
+          <Space className="flex justify-between w-full">
+            <Button
+              type="link"
+              htmlType="button"
+              size="large"
+              onClick={() => navigate("/register")}
+            >
+              Реєстрація
+            </Button>
+            <Button type="primary" htmlType="submit" size="large">
+              Вхід
+            </Button>
+          </Space>
         </Form.Item>
         {isError && (
           <p className="text-red-500 text-center">
