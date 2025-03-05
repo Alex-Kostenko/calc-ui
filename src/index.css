@@ -20,6 +20,10 @@
   font-size: 16px;
 }
 
+h3 {
+  font-size: 18px;
+}
+
 .usa-map__territory {
   fill: #e6e8ed;
   stroke: #0988ff;

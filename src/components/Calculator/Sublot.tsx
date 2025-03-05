@@ -13,7 +13,9 @@ const Sublot = () => {
   };
   return (
     <div>
-      <Checkbox onChange={handleChange}>Sublot</Checkbox>
+      <Checkbox onChange={handleChange}>
+        <p className="text-lg">Sublot</p>
+      </Checkbox>
     </div>
   );
 };
