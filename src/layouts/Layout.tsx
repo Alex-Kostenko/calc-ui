@@ -21,7 +21,7 @@ const Layout = () => {
       },
     },
     "/login": {
-      buttonName: "Реєстрація",
+      buttonName: "none",
       href: "/register",
       onClick: () => {},
     },
