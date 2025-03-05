@@ -8,7 +8,7 @@ const Register = () => {
     };
   }, []);
   return (
-    <div className="flex flex-1 container justify-center items-center text-4xl h-full mx-auto">
+    <div className="flex flex-1 container justify-center items-center text-4xl h-full mx-auto z-10">
       <p>
         Для реєстрації зверніться в{" "}
         <a

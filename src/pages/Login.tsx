@@ -9,7 +9,7 @@ const Login = () => {
     };
   }, []);
   return (
-    <div className="flex items-center justify-center flex-1">
+    <div className="flex items-center justify-center flex-1 z-10">
       <LoginForm />
     </div>
   );
