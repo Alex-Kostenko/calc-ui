@@ -58,7 +58,7 @@ export const strapiApi = createApi({
     }),
     getAllCarTypes: builder.query<IResponse<ICarType[]>, void>({
       query: () => "car-types?populate=image&populate=packImage",
-      transformResponse(res: IResponse<ICarType[]>, meta, arg) {
+      transformResponse(res: IResponse<ICarType[]>) {
         const typesOrder: TCarTypes[] = [
           "sedan",
           "crossover",
