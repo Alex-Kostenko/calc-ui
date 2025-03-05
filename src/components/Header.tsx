@@ -10,7 +10,7 @@ const Header = ({ buttonName, href, onClick }: Props) => {
   if (buttonName === "none") return <></>;
   return (
     <header>
-      <nav className="container mx-auto">
+      <nav className="h-0 container mx-auto">
         <Button
           onClick={onClick}
           size="large"
