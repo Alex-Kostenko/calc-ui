@@ -10,6 +10,7 @@ import {
   Result,
   CarType,
   CarContainer,
+  Sublot,
 } from "@/components/Calculator/index";
 import { useAppDispatch } from "@/hooks";
 import {
@@ -52,6 +53,7 @@ const Calculator = () => {
         <AuctionCards />
         <CarType />
         <Locations />
+        <Sublot />
         <Port />
         <FuelType />
         <EngineVolume />
