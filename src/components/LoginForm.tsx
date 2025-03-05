@@ -43,7 +43,7 @@ const LoginForm: React.FC = () => {
   }, []);
 
   return (
-    <div className="shadow-form sm:mx-0 mx-4 p-[30px] pb-6 rounded-[30px] flex flex-col gap-5 bg-white -translate-y-2/5">
+    <div className="shadow-form sm:mx-0 mx-4 p-[30px] pb-6 rounded-[30px] flex flex-col gap-5 bg-white xl:-translate-y-2/5 md:translate-y-0 ">
       <h2 className="text-center text-2xl">Вхід</h2>
       <Form
         name="basic"
@@ -73,7 +73,7 @@ const LoginForm: React.FC = () => {
           name="remember"
           valuePropName="checked"
           label={null}
-          className="w-fit"
+          className="w-fit text-nowrap"
         >
           <Checkbox>Запам'ятати мене</Checkbox>
         </Form.Item>
