@@ -9,7 +9,7 @@ const Breadcrumbs = () => {
           <img src={headerBg} className="w-full object-cover -z-20" alt="" />
         </div>
       </div>
-      <div className=" 2xl:h-[750px] xl:h-[600px] lg:h-[450px] md:h-[350px] h-[200px]"></div>
+      <div className="h-[10vh] sm:h-[20vh] md:h-[25vh] xl:h-[50vh]"></div>
     </>
   );
 };
