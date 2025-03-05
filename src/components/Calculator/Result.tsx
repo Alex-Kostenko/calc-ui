@@ -102,11 +102,15 @@ const Result = ({ user }: { user: IUser }) => {
     <Container className="grid grid-cols-2 gap-5 lg:col-span-2 bg-main-gray text-secondary-gray pt-4 rounded">
       <div className="flex flex-col space-y-4 justify-between px-4 [&>p]:flex [&>p]:justify-between">
         <p>
-          Ціна авто: <span>{"$" + (carPrice || "")}</span>
+          Ціна авто: <span>{carPrice ? "$" + carPrice : ""}</span>
         </p>
         <p>
           Аукціонний збір:{" "}
-          <span>{"$" + (calculate(calculateFee(), "auctionFee") || "")}</span>
+          <span>
+            {calculate(calculateFee(), "auctionFee")
+              ? "$" + calculate(calculateFee(), "auctionFee")
+              : ""}
+          </span>
         </p>
         <p>
           Страхування:
@@ -114,12 +118,18 @@ const Result = ({ user }: { user: IUser }) => {
         </p>
         <p>
           Доставка до порту:{" "}
-          <span>{"$" + calculate(location?.price, "portDelivery")}</span>
+          <span>
+            {calculate(location?.price, "portDelivery")
+              ? "$" + calculate(location?.price, "portDelivery")
+              : ""}
+          </span>
         </p>
         <p>
           Ціна морської переправи:{" "}
           <span>
-            {"$" + calculate(calculateSeaDelivery(), "seaTransportation")}
+            {calculate(calculateSeaDelivery(), "seaTransportation")
+              ? "$" + calculate(calculateSeaDelivery(), "seaTransportation")
+              : ""}
           </span>
         </p>
         {isSublot && (
@@ -130,21 +140,31 @@ const Result = ({ user }: { user: IUser }) => {
         <p>
           Акциз:{" "}
           <span>
-            {"$" +
-              calculate(
-                fuelType === "electric" ? getExciseElectric() : getExcise(),
-                "excise"
-              )}
+            {calculate(
+              fuelType === "electric" ? getExciseElectric() : getExcise(),
+              "excise"
+            )
+              ? "$" +
+                calculate(
+                  fuelType === "electric" ? getExciseElectric() : getExcise(),
+                  "excise"
+                )
+              : ""}
           </span>
         </p>
         <p>
           Мито:{" "}
           <span>
-            {"$" +
-              calculate(
-                fuelType === "electric" ? getDutyElectric() : getDuty(),
-                "duty"
-              )}
+            {calculate(
+              fuelType === "electric" ? getDutyElectric() : getDuty(),
+              "duty"
+            )
+              ? "$" +
+                calculate(
+                  fuelType === "electric" ? getDutyElectric() : getDuty(),
+                  "duty"
+                )
+              : ""}
           </span>
         </p>
       </div>
@@ -153,11 +173,16 @@ const Result = ({ user }: { user: IUser }) => {
         <p>
           ПДВ:{" "}
           <span>
-            {"$" +
-              calculate(
-                fuelType === "electric" ? getVatElectric() : getVat(),
-                "vat"
-              )}
+            {calculate(
+              fuelType === "electric" ? getVatElectric() : getVat(),
+              "vat"
+            )
+              ? "$" +
+                calculate(
+                  fuelType === "electric" ? getVatElectric() : getVat(),
+                  "vat"
+                )
+              : ""}
           </span>
         </p>
         <p>
@@ -192,7 +217,9 @@ const Result = ({ user }: { user: IUser }) => {
         <p>
           Постановка на облік:{" "}
           <span>
-            {"$" + calculate(calculateRegistration(), "registration")}
+            {calculate(calculateRegistration(), "registration")
+              ? "$" + calculate(calculateRegistration(), "registration")
+              : ""}
           </span>
         </p>
         <p>
