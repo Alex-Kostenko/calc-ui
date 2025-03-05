@@ -41,7 +41,6 @@ const Layout = () => {
     <>
       <Header {...headerOptions[path]} />
       <main className="min-h-[calc(100vh-120px)] flex flex-col">
-        <div className="w-full h-16 bg-white"></div>
         <Breadcrumbs />
         <Outlet />
       </main>

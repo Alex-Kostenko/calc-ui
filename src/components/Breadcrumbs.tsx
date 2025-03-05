@@ -1,28 +1,16 @@
-import { Breadcrumb } from "antd";
-import { useLocation } from "react-router-dom";
-import headerBg from "/usa-header-bg.jpg";
-import Container from "./Container";
+import headerBg from "/AIv2.webp";
 
 const Breadcrumbs = () => {
-  const path = useLocation().pathname;
-  const lastItem = path.substring(1, path.length)
-    ? {
-        title: path.substring(1, path.length),
-        href: path,
-      }
-    : {};
-
   return (
-    <div className="relative flex items-center w-full h-[310px] overflow-hidden">
-      <img
-        src={headerBg}
-        className="absolute bottom-0 w-full opacity-30 -z-10"
-        alt=""
-      />
-      <Container>
-        <Breadcrumb items={[{ title: "Home", href: "/" }, lastItem]} />
-      </Container>
-    </div>
+    <>
+      <div className="absolute top-0 left-0 right-0">
+        <div className="relative flex items-center w-full ">
+          <div className="absolute inset-0 -z-10  text-white/60 bg-gradient-to-b from-transparent from-40% via-white/90 via-60% to-white"></div>
+          <img src={headerBg} className="w-full object-cover -z-20" alt="" />
+        </div>
+      </div>
+      <div className=" 2xl:h-[750px] xl:h-[600px] lg:h-[450px] md:h-[350px] h-[200px]"></div>
+    </>
   );
 };
 
