@@ -12,6 +12,7 @@ import {
   ICarType,
   IFormula,
   IFuelCost,
+  TCarTypes,
 } from "@interfaces/index";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -57,6 +58,19 @@ export const strapiApi = createApi({
     }),
     getAllCarTypes: builder.query<IResponse<ICarType[]>, void>({
       query: () => "car-types?populate=image&populate=packImage",
+      transformResponse(res: IResponse<ICarType[]>, meta, arg) {
+        const typesOrder: TCarTypes[] = [
+          "sedan",
+          "crossover",
+          "big-crossover",
+          "minivan",
+          "pikup",
+        ];
+        res.data = res.data.sort(
+          (a, b) => typesOrder.indexOf(a.name) - typesOrder.indexOf(b.name)
+        );
+        return res;
+      },
     }),
     getAllFormules: builder.query<IResponse<IFormula[]>, void>({
       query: () => "formulas?populate=operations",
