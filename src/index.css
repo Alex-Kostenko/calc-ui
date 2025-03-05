@@ -13,11 +13,17 @@
 
   --animate-pulse: pulse 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   --default-font-family: Gothic;
+
+  --shadow-form: 3px 4px 11px 0px hsl(0deg 0% 0% / 0.38);
 }
 
 .ant-select-selection-item,
-.ant-input-outlined {
-  font-size: 16px;
+.ant-input-outlined,
+.ant-form-item-required,
+.ant-checkbox-label,
+.ant-btn-color-primary,
+.ant-btn-variant-solid {
+  font-size: 16px !important;
 }
 
 h3 {

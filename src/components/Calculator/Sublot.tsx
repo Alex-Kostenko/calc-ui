@@ -1,6 +1,7 @@
 import { useAppDispatch } from "@/hooks";
 import { setAll } from "@/store/slices/total.slice";
 import { Checkbox, CheckboxProps } from "antd";
+import Container from "../Container";
 
 const Sublot = () => {
   const dispatch = useAppDispatch();
@@ -12,11 +13,11 @@ const Sublot = () => {
     );
   };
   return (
-    <div>
+    <Container>
       <Checkbox onChange={handleChange}>
         <p className="text-lg">Sublot</p>
       </Checkbox>
-    </div>
+    </Container>
   );
 };
 

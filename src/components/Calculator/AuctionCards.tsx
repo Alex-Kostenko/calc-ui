@@ -22,14 +22,14 @@ const AuctionCards = () => {
   return (
     <Container>
       <h3>Аукціон:</h3>
-      <div className=" flex gap-5">
+      <div className="grid 2xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
         {!isLoading &&
           data &&
           data?.data.map((auction, index) => (
             <div
               data-active={active === auction.name ? true : undefined}
               key={index}
-              className="data-[active]:!border-b-blue-600 data-[active]:shadow-md px-7 py-2 bg-main-gray !rounded-none cursor-pointer border-b-4 border-transparent flex flex-col items-center gap-4"
+              className="data-[active]:!border-b-blue-600 data-[active]:shadow-md px-7 py-2 bg-main-gray !rounded-none cursor-pointer border-b-4 border-transparent flex flex-col items-center gap-4 pt-4"
               onClick={() => handleSelectAuction(auction.name)}
             >
               <img

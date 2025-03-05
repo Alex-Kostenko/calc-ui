@@ -1,16 +1,21 @@
 import { Button } from "antd";
 
 interface Props {
-  buttonName: string;
+  buttonName: string | "none";
   onClick: () => void;
   href: string;
 }
 
 const Header = ({ buttonName, href, onClick }: Props) => {
+  if (buttonName === "none") return <></>;
   return (
-    <header className="absolute z-50 bg-white top-12 left-1/2 -translate-x-1/2 container flex items-center px-4 md:px-6 lg:px-8 shadow-md">
-      <nav className="ml-auto py-4">
-        <Button onClick={onClick}>
+    <header>
+      <nav className="container mx-auto">
+        <Button
+          onClick={onClick}
+          size="large"
+          className="absolute z-50 bg-white top-12 -translate-x-full left-full flex items-center w-fit px-4 md:px-6 lg:px-8 shadow-md"
+        >
           <a href={href}>{buttonName}</a>
         </Button>
       </nav>
