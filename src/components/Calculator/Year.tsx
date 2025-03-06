@@ -18,7 +18,7 @@ const Year = () => {
       <h3>Рік:</h3>
       <Select
         showSearch
-        placeholder="Year"
+        placeholder="Рік"
         optionFilterProp="label"
         onSelect={handleSelect}
         options={Array.from({ length: selectLength })

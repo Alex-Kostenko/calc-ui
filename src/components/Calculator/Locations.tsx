@@ -47,7 +47,7 @@ const Locations = () => {
       {!isLoading && location && (
         <Select
           showSearch
-          placeholder="Location"
+          placeholder="Локації"
           optionFilterProp="label"
           onSelect={handleSetPorts}
           className="w-full"
