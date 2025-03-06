@@ -29,7 +29,7 @@ const AuctionCards = () => {
             <div
               data-active={active === auction.name ? true : undefined}
               key={index}
-              className="data-[active]:!border-b-blue-600 data-[active]:shadow-md px-7 py-2 bg-main-gray !rounded-none cursor-pointer border-b-4 border-transparent flex flex-col items-center gap-4 pt-4"
+              className="data-[active]:!border-b-blue-600 px-7 py-2 bg-white rounded-2xl shadow-form cursor-pointer border-b-4 border-transparent flex flex-col items-center gap-4 pt-4"
               onClick={() => handleSelectAuction(auction.name)}
             >
               <img

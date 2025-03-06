@@ -27,7 +27,7 @@ const CarType = () => {
           data.data.map((carType) => (
             <div
               data-active={currentType && currentType?.name === carType.name}
-              className="flex flex-col items-center justify-center data-[active='true']:!border-b-blue-600 data-[active]:shadow-md p-2 bg-main-gray !rounded-none cursor-pointer border-b-4 border-transparent h-full [&>*]:mt-auto"
+              className="flex flex-col items-center justify-center data-[active='true']:!border-b-blue-600 p-2 cursor-pointer border-b-4 border-transparent h-full [&>*]:mt-auto bg-white shadow-form rounded-2xl"
               onClick={() => handleSelect(carType)}
               key={carType.name}
             >
