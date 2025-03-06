@@ -27,12 +27,12 @@ const CarType = () => {
           data.data.map((carType) => (
             <div
               data-active={currentType && currentType?.name === carType.name}
-              className="flex flex-col gap-5 items-center data-[active='true']:!border-b-blue-600 data-[active]:shadow-md p-2 bg-main-gray !rounded-none cursor-pointer border-b-4 border-transparent"
+              className="flex flex-col items-center justify-center data-[active='true']:!border-b-blue-600 data-[active]:shadow-md p-2 bg-main-gray !rounded-none cursor-pointer border-b-4 border-transparent h-full [&>*]:mt-auto"
               onClick={() => handleSelect(carType)}
               key={carType.name}
             >
               <img src={getImageUrl(carType.image)} alt={carType.name} />
-              <p>{carType.label || carType.name}</p>
+              <p className="">{carType.label || carType.name}</p>
             </div>
           ))}
       </div>
