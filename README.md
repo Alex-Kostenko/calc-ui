@@ -67,3 +67,15 @@
 > ```
 >
 > Приклад використання: `volume * coefficient:volume`
+
+---
+
+# Database backup
+
+create dump
+
+`pg_dump -h 0.0.0.0 -p 5432 -U your_username -d your_db_name -f backup.dump`
+
+upload dump
+
+`pg_restore -h 0.0.0.0 -p 5432 -U your_username -d your_db_name backup.dump`
