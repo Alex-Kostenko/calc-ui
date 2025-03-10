@@ -74,8 +74,10 @@
 
 create dump
 
-`pg_dump -h 0.0.0.0 -p 5432 -U your_username -d your_db_name -f backup.dump`
+`pg_dump -h 0.0.0.0 -p 5432 -U postgres -Fc calculator > backup.dump`
 
 upload dump
 
-`pg_restore -h 0.0.0.0 -p 5432 -U your_username -d your_db_name backup.dump`
+`pg_restore -h 0.0.0.0 -p 5432 -U postgres -d calculator backup.dump`
+
+---
