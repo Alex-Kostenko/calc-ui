@@ -14,9 +14,8 @@ const isNumber = (str: string): boolean => {
 export function useFormula(name: string, user: IUser) {
   const { data, isError } = useGetFormulaByNameQuery(name);
 
-  const { carYear, fuelType, volume, fuelCost } = useAppSelector(
-    (state) => state.total
-  );
+  const { carYear, fuelType, volume, fuelCost, auctionBids, carPrice } =
+    useAppSelector((state) => state.total);
   const total = useAppSelector((state) => state.total);
 
   if (isError) {
@@ -36,6 +35,18 @@ export function useFormula(name: string, user: IUser) {
       const cost = fuelCost[fuelType];
 
       return Math.round(volume >= cost.amount ? cost.max : cost.min);
+    },
+    bid: () => {
+      if (!carPrice || !auctionBids) return undefined;
+
+      const bids = [...auctionBids].sort((a, b) => a.amount - b.amount);
+      if (!bids) return undefined;
+
+      const currentBid = bids.find((b) => b.amount >= carPrice);
+
+      if (!currentBid) return undefined;
+
+      return currentBid.bid;
     },
   };
 
