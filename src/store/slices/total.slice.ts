@@ -1,6 +1,12 @@
 import { ICarType } from "@/interfaces/car.type";
 import { IConst } from "@/interfaces/const";
-import { TFuelType, IFuelCost, ILocation, IUser } from "@/interfaces/index";
+import {
+  TFuelType,
+  IFuelCost,
+  ILocation,
+  IUser,
+  IBid,
+} from "@/interfaces/index";
 import { IPercentByValue } from "@/interfaces/registration";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -13,6 +19,7 @@ export interface TotalState {
   fuelCost?: IFuelCost;
   volume?: number;
   auctionFee?: number;
+  auctionBids?: IBid[];
   registrationPercents?: IPercentByValue[];
   user?: IUser;
   consts?: IConst;
@@ -20,16 +27,12 @@ export interface TotalState {
 
   carPrice?: null | number;
   insurance?: number;
-  // portDeliveryPrice?: number;
-  // seaTransportingPrice?: number;
   excise?: number;
   duty?: number;
   vat?: number;
   broker?: number;
   expedition?: number;
-  // cityDeliveryPrice?: number;
   certification?: number;
-  // registration?: number;
   companyServices?: number;
 }
 
