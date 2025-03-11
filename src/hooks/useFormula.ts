@@ -102,9 +102,11 @@ export function useFormula(name: string, user: IUser) {
           );
         }
 
-        const t = user?.coefficient.coef.find((c) => c.field === token);
+        const isTokenCoef = user?.coefficient.coef.find(
+          (c) => c.field === token
+        );
 
-        if (t) {
+        if (isTokenCoef) {
           return (
             calculate(
               (total[token as keyof typeof total] as unknown as number) ||
