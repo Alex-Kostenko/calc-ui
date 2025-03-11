@@ -1,6 +1,6 @@
 import { useAppDispatch } from "@/hooks";
 import { useGetAllAuctionsQuery } from "@/store/api";
-import { setAuction } from "@/store/slices/total.slice";
+import { setAll } from "@/store/slices/total.slice";
 import { useState } from "react";
 import { Container } from "@components/index";
 import { getImageUrl } from "@/utils";
@@ -8,10 +8,17 @@ import { getImageUrl } from "@/utils";
 const AuctionCards = () => {
   const [active, setActive] = useState<string | null>(null);
   const { data, isLoading } = useGetAllAuctionsQuery();
+
   const dispatch = useAppDispatch();
 
   const handleSelectAuction = (auctionName: string) => {
-    dispatch(setAuction(auctionName));
+    dispatch(
+      setAll({
+        auctionBids: data?.data.find((auction) => auction.name === auctionName)
+          ?.bids,
+        auctionName,
+      })
+    );
     setActive(auctionName);
   };
 
