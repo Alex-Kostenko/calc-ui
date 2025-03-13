@@ -12,14 +12,17 @@ const AuctionCards = () => {
   const dispatch = useAppDispatch();
 
   const handleSelectAuction = (auctionName: string) => {
-    dispatch(
-      setAll({
-        auctionBids: data?.data.find((auction) => auction.name === auctionName)
-          ?.bids,
-        auctionName,
-      })
-    );
-    setActive(auctionName);
+    const auction = data?.data.find((auction) => auction.name === auctionName);
+    if (auction) {
+      dispatch(
+        setAll({
+          auctionBids: auction.bids,
+          additionalFee: auction.additionalFee,
+          auctionName,
+        })
+      );
+      setActive(auctionName);
+    }
   };
 
   if (!data?.data.length) {
