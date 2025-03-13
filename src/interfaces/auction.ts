@@ -12,4 +12,12 @@ export interface IAuction extends IEntity {
   locations: ILocation[];
   auction_tax: AuctionTax;
   image: IImage;
+  bids: IBid[];
+  additionalFee: number;
+}
+
+export interface IBid {
+  id: number;
+  amount: number;
+  bid: number;
 }

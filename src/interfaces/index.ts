@@ -11,3 +11,6 @@ export * from "./fuel.type";
 export * from "./login";
 export * from "./car.type";
 export * from "./formula";
+export * from "./archive";
+export * from "./const";
+export * from "./registration";

@@ -21,13 +21,13 @@ const Result = ({ user }: { user: IUser }) => {
 
   const dispatch = useAppDispatch();
 
-  const [getExcise] = useFormula("excise");
-  const [getDuty] = useFormula("duty");
-  const [getExciseElectric] = useFormula("excise_electric");
-  const [getDutyElectric] = useFormula("duty_electric");
-  const [getVat] = useFormula("vat");
-  const [getVatElectric] = useFormula("vat_electric");
-  const [getInsurance] = useFormula("insurance");
+  const [getExcise] = useFormula("excise", user);
+  const [getDuty] = useFormula("duty", user);
+  const [getExciseElectric] = useFormula("excise_electric", user);
+  const [getDutyElectric] = useFormula("duty_electric", user);
+  const [getVat] = useFormula("vat", user);
+  const [getVatElectric] = useFormula("vat_electric", user);
+  const [getInsurance] = useFormula("insurance", user);
 
   const sum = (args: Array<number | undefined | null | "">) => {
     if (args.every((a) => typeof a === "number"))

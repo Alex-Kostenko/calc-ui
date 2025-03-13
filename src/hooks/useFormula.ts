@@ -1,5 +1,7 @@
 import { useGetFormulaByNameQuery } from "@/store/api";
 import { useAppSelector } from ".";
+import { ICoef } from "@/interfaces/coefficient";
+import { IUser } from "@/interfaces";
 
 const dbValuePattern = /^([^:]+)(?::([^:]+))+$/;
 const operations = "()+-*/><?:";
@@ -9,12 +11,11 @@ const isNumber = (str: string): boolean => {
   return !isNaN(Number(str));
 };
 
-export function useFormula(name: string) {
+export function useFormula(name: string, user: IUser) {
   const { data, isError } = useGetFormulaByNameQuery(name);
 
-  const { user, carYear, fuelType, volume, fuelCost } = useAppSelector(
-    (state) => state.total
-  );
+  const { carYear, fuelType, volume, fuelCost, auctionBids, carPrice } =
+    useAppSelector((state) => state.total);
   const total = useAppSelector((state) => state.total);
 
   if (isError) {
@@ -35,7 +36,29 @@ export function useFormula(name: string) {
 
       return Math.round(volume >= cost.amount ? cost.max : cost.min);
     },
+    bid: () => {
+      if (!carPrice || !auctionBids) return undefined;
+
+      const bids = [...auctionBids].sort((a, b) => b.amount - a.amount);
+      if (!bids) return undefined;
+
+      const currentBid = bids.find((b) => b.amount <= carPrice);
+
+      if (!currentBid) return undefined;
+
+      return currentBid.bid;
+    },
   };
+
+  function calculate(value: number | undefined, coefName: ICoef["field"]) {
+    if (!value && value !== 0) return "";
+
+    const coef = user?.coefficient.coef.find((c) => c.field === coefName);
+
+    if (!coef) return value;
+
+    return coef.isPercent ? value * coef.value : value + coef.value;
+  }
 
   const formula =
     initFormula &&
@@ -63,6 +86,22 @@ export function useFormula(name: string) {
         if (token.includes(":")) {
           const tokens = token.split(":");
 
+          const isTokenCoef = tokens.some((t) =>
+            user?.coefficient.coef.find((c) => c.field === t)
+          );
+
+          if (isTokenCoef) {
+            return calculate(
+              (tokens.reduce(
+                (acc, key) =>
+                  acc && key in acc
+                    ? (acc[key as keyof typeof total] as any)
+                    : undefined,
+                total
+              ) as unknown as number) ?? 0,
+              tokens[tokens.length - 1] as ICoef["field"]
+            );
+          }
           return (
             tokens.reduce(
               (acc, key) =>
@@ -73,6 +112,21 @@ export function useFormula(name: string) {
             ) ?? "0"
           );
         }
+
+        const isTokenCoef = user?.coefficient.coef.find(
+          (c) => c.field === token
+        );
+
+        if (isTokenCoef) {
+          return (
+            calculate(
+              (total[token as keyof typeof total] as unknown as number) ||
+                undefined,
+              token as ICoef["field"]
+            ) || "undefined"
+          );
+        }
+
         return total[token as keyof typeof total] || "undefined";
       })
       .join(" ");
