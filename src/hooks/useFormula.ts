@@ -39,10 +39,10 @@ export function useFormula(name: string, user: IUser) {
     bid: () => {
       if (!carPrice || !auctionBids) return undefined;
 
-      const bids = [...auctionBids].sort((a, b) => a.amount - b.amount);
+      const bids = [...auctionBids].sort((a, b) => b.amount - a.amount);
       if (!bids) return undefined;
 
-      const currentBid = bids.find((b) => b.amount >= carPrice);
+      const currentBid = bids.find((b) => b.amount <= carPrice);
 
       if (!currentBid) return undefined;
 
