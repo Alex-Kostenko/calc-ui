@@ -19,6 +19,7 @@ export interface TotalState {
   fuelCost?: IFuelCost;
   volume?: number;
   auctionFee?: number;
+  additionalFee?: number;
   auctionBids?: IBid[];
   registrationPercents?: IPercentByValue[];
   user?: IUser;
