@@ -17,7 +17,7 @@ const EngineVolume = () => {
       <Input
         type="number"
         onChange={(e) => handleSelect(+e.target.value)}
-        min={10}
+        min={1}
       />
     </Container>
   );
