@@ -1,4 +1,4 @@
-import headerBg from "/AIv2.webp";
+import headerBg from "/hero.webp";
 
 const Breadcrumbs = () => {
   return (
