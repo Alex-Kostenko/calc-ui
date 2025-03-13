@@ -13,6 +13,7 @@ export interface IAuction extends IEntity {
   auction_tax: AuctionTax;
   image: IImage;
   bids: IBid[];
+  additionalFee: number;
 }
 
 export interface IBid {
