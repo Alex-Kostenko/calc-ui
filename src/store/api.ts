@@ -1,5 +1,3 @@
-import { IConst } from "@/interfaces/const";
-import { IRegistration } from "@/interfaces/registration";
 import {
   IUser,
   IAuction,
@@ -13,6 +11,10 @@ import {
   IFormula,
   IFuelCost,
   TCarTypes,
+  IArchiveResponse,
+  IArchiveUrl,
+  IConst,
+  IRegistration,
 } from "@interfaces/index";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -97,6 +99,22 @@ export const strapiApi = createApi({
     getFuelCost: builder.query<IResponse<IFuelCost>, void>({
       query: () => "fuel?populate=*",
     }),
+    getImages: builder.query<IArchiveUrl, void>({
+      query: () => "download-images",
+      transformResponse(res: IArchiveResponse) {
+        return {
+          url: window.URL.createObjectURL(
+            new Blob([new Uint8Array(res.file.data)], {
+              type: "application/zip",
+            })
+          ),
+        };
+      },
+    }),
+    getAllCarsList: builder.query<any, void>({
+      query: () =>
+        "cars-lists?populate=start_port_images&populate=end_port_images&populate=author",
+    }),
   }),
 });
 
@@ -116,4 +134,6 @@ export const {
   useGetConstsQuery,
   useGetRegistrationPercentQuery,
   useGetFuelCostQuery,
+  useGetImagesQuery,
+  useGetAllCarsListQuery,
 } = strapiApi;
