@@ -5,7 +5,13 @@ import { setAll } from "@/store/slices/total.slice";
 
 const Year = () => {
   const startYear = 1990;
-  const selectLength = new Date().getFullYear() - startYear;
+  const selectLength = new Date().getFullYear() - startYear + 1;
+  const options = Array.from({ length: selectLength })
+    .map((_, i) => ({
+      label: String(startYear + i),
+      value: startYear + i,
+    }))
+    .reverse();
 
   const dispatch = useAppDispatch();
 
@@ -21,12 +27,7 @@ const Year = () => {
         placeholder="Рік"
         optionFilterProp="label"
         onSelect={handleSelect}
-        options={Array.from({ length: selectLength })
-          .map((_, i) => ({
-            label: String(startYear + i),
-            value: startYear + i,
-          }))
-          .reverse()}
+        options={options}
       />
     </Container>
   );
