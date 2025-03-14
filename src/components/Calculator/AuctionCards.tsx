@@ -32,7 +32,7 @@ const AuctionCards = () => {
   return (
     <Container>
       <h3>Аукціон:</h3>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-3 gap-2 md:gap-5">
         {!isLoading &&
           data &&
           data?.data.map((auction, index) => (
@@ -45,7 +45,7 @@ const AuctionCards = () => {
               <img
                 src={getImageUrl(auction.image)}
                 alt=""
-                className="!h-[55px]"
+                className="!h-[35px] md:!h-[55px]"
               />
               {auction.name}
             </div>

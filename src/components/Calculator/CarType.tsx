@@ -21,7 +21,7 @@ const CarType = () => {
     <Container>
       <h3>Тип авто:</h3>
       {/* flex flex-row flex-wrap */}
-      <div className="grid grid-cols-3 grid-rows-2 items-center gap-5">
+      <div className="grid grid-cols-3 grid-rows-2 items-center gap-2 md:gap-5">
         {!isLoading &&
           data &&
           data.data.map((carType) => (
