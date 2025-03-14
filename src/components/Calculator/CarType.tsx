@@ -21,7 +21,7 @@ const CarType = () => {
     <Container>
       <h3>Тип авто:</h3>
       {/* flex flex-row flex-wrap */}
-      <div className="grid 2xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 items-center gap-5">
+      <div className="grid grid-cols-3 grid-rows-2 items-center gap-5">
         {!isLoading &&
           data &&
           data.data.map((carType) => (
@@ -32,7 +32,7 @@ const CarType = () => {
               key={carType.name}
             >
               <img src={getImageUrl(carType.image)} alt={carType.name} />
-              <p className="">{carType.label || carType.name}</p>
+              <p className="text-center">{carType.label || carType.name}</p>
             </div>
           ))}
       </div>
