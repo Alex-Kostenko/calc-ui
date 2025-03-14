@@ -47,8 +47,9 @@ const Result = ({ user }: { user: IUser }) => {
 
   const calculateFee = () => {
     if (carPrice && location?.auctions) {
-      const taxes = location?.auctions.find((a) => a.name === auctionName)
-        ?.auction_tax.tax;
+      const taxes = location?.auctions
+        .find((a) => a.name === auctionName)
+        ?.auction_tax.tax.sort((a, b) => b.threshold - a.threshold);
 
       if (!taxes) {
         return undefined;
