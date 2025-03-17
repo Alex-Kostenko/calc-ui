@@ -18,7 +18,7 @@ const AuctionCards = () => {
         setAll({
           auctionBids: auction.bids,
           additionalFee: auction.additionalFee,
-          auctionName,
+          auction,
         })
       );
       setActive(auctionName);

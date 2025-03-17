@@ -10,7 +10,7 @@ const Locations = () => {
 
   const { data, isLoading } = useGetAllLocationsQuery();
 
-  const auctionName = useAppSelector((state) => state.total.auctionName);
+  const auction = useAppSelector((state) => state.total.auction);
 
   const dispatch = useAppDispatch();
 
@@ -35,7 +35,7 @@ const Locations = () => {
 
   useEffect(() => {
     clear();
-  }, [auctionName]);
+  }, [auction?.name]);
 
   if (!data?.data.length) {
     return <p>Локації не знайдено. Заповніть таблицю</p>;
@@ -56,7 +56,7 @@ const Locations = () => {
           value={value}
           options={
             data?.data
-              .filter((l) => l.auctions.some((a) => a.name === auctionName))
+              .filter((l) => l.auctions.some((a) => a.name === auction?.name))
               .map((l) => ({
                 label: l.state.name + " - " + l.name,
                 value: l.name,

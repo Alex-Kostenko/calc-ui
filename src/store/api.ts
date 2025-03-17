@@ -54,7 +54,7 @@ export const strapiApi = createApi({
     }),
     getAllAuctions: builder.query<IResponse<IAuction[]>, void>({
       query: () =>
-        "auctions?populate=locations&populate=auction_tax&populate=image&populate=bids",
+        "auctions?populate=locations&populate=auction_tax.tax&populate=image&populate=bids",
     }),
     getAllCarTypes: builder.query<IResponse<ICarType[]>, void>({
       query: () => "car-types?populate=image&populate=packImage",

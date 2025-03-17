@@ -11,7 +11,7 @@ const Result = ({ user }: { user: IUser }) => {
     carPrice,
     location,
     carType,
-    auctionName,
+    auction,
     consts,
     fuelType,
     registrationPercents,
@@ -47,8 +47,7 @@ const Result = ({ user }: { user: IUser }) => {
 
   const calculateFee = () => {
     if (carPrice && location?.auctions) {
-      const taxes = location?.auctions.find((a) => a.name === auctionName)
-        ?.auction_tax.tax;
+      const taxes = auction?.auction_tax.tax;
 
       if (!taxes) {
         return undefined;
@@ -70,7 +69,7 @@ const Result = ({ user }: { user: IUser }) => {
         auctionFee: calculateFee(),
       })
     );
-  }, [carPrice, location?.auctions]);
+  }, [carPrice, auction]);
 
   const calculateRegistration = () => {
     if (carPrice && registrationPercents) {

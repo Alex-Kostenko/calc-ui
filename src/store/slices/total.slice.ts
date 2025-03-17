@@ -6,13 +6,14 @@ import {
   ILocation,
   IUser,
   IBid,
+  IAuction,
 } from "@/interfaces/index";
 import { IPercentByValue } from "@/interfaces/registration";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface TotalState {
   location: null | ILocation;
-  auctionName: null | string;
+  auction?: IAuction;
   carType?: ICarType;
   carYear?: number;
   fuelType?: TFuelType;
@@ -39,7 +40,6 @@ export interface TotalState {
 
 const initialState: TotalState = {
   location: null,
-  auctionName: null,
   carPrice: undefined,
 };
 
@@ -63,12 +63,9 @@ export const totalSlice = createSlice({
     setCarPrice: (state, action) => {
       state.carPrice = action.payload;
     },
-    setAuction: (state, action) => {
-      state.auctionName = action.payload;
-    },
   },
 });
 
-export const { setAll, setAuction, setLocation } = totalSlice.actions;
+export const { setAll, setLocation } = totalSlice.actions;
 
 export default totalSlice.reducer;
