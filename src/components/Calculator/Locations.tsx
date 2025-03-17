@@ -52,6 +52,7 @@ const Locations = () => {
           onSelect={handleSetPorts}
           className="w-full"
           allowClear
+          onClear={clear}
           value={value}
           options={
             data?.data
