@@ -5,6 +5,19 @@ import { Select } from "antd";
 import Container from "../Container";
 import { useEffect, useState } from "react";
 
+function sortLocations(
+  a: { label: string; value: string },
+  b: { label: string; value: string }
+) {
+  if (a.label < b.label) {
+    return -1;
+  } else if (a.label > b.label) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
 const Locations = () => {
   const [value, setValue] = useState<string | null>(null);
 
@@ -60,7 +73,8 @@ const Locations = () => {
               .map((l) => ({
                 label: l.state.name + " - " + l.name,
                 value: l.name,
-              })) || [{ label: "", value: "" }]
+              }))
+              .sort(sortLocations) || [{ label: "", value: "" }]
           }
         ></Select>
       )}
