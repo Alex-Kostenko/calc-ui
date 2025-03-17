@@ -1,4 +1,5 @@
 import { IConst } from "@/interfaces/const";
+import { IExchange } from "@/interfaces/exchange";
 import { IRegistration } from "@/interfaces/registration";
 import {
   IUser,
@@ -97,6 +98,9 @@ export const strapiApi = createApi({
     getFuelCost: builder.query<IResponse<IFuelCost>, void>({
       query: () => "fuel?populate=*",
     }),
+    getCurrencyRate: builder.query<IExchange, void>({
+      query: () => `currency`,
+    }),
   }),
 });
 
@@ -116,4 +120,5 @@ export const {
   useGetConstsQuery,
   useGetRegistrationPercentQuery,
   useGetFuelCostQuery,
+  useGetCurrencyRateQuery,
 } = strapiApi;

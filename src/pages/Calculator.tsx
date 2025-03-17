@@ -15,6 +15,7 @@ import {
 import { useAppDispatch } from "@/hooks";
 import {
   useGetConstsQuery,
+  useGetCurrencyRateQuery,
   useGetFuelCostQuery,
   useGetMeQuery,
   useGetRegistrationPercentQuery,
@@ -25,22 +26,23 @@ import { useEffect } from "react";
 const Calculator = () => {
   const dispatch = useAppDispatch();
   const { data: user } = useGetMeQuery();
-
+  const { data: currency } = useGetCurrencyRateQuery();
   const { data: consts } = useGetConstsQuery();
   const { data: registrationPercents } = useGetRegistrationPercentQuery();
   const { data: fuelCost } = useGetFuelCostQuery();
 
   useEffect(() => {
-    if (consts && fuelCost && registrationPercents) {
+    if (consts && fuelCost && registrationPercents && currency) {
       dispatch(
         setAll({
           consts: consts?.data,
           registrationPercents: registrationPercents?.data.values,
           fuelCost: fuelCost?.data,
+          exchange: currency,
         })
       );
     }
-  }, [consts, registrationPercents, fuelCost, dispatch]);
+  }, [consts, registrationPercents, fuelCost, dispatch, currency]);
 
   if (!user) {
     return <>Loading...</>;

@@ -1,5 +1,6 @@
 import { ICarType } from "@/interfaces/car.type";
 import { IConst } from "@/interfaces/const";
+import { IExchange } from "@/interfaces/exchange";
 import {
   TFuelType,
   IFuelCost,
@@ -26,6 +27,8 @@ export interface TotalState {
   user?: IUser;
   consts?: IConst;
   isSublot?: boolean;
+
+  exchange?: IExchange;
 
   carPrice?: null | number;
   insurance?: number;

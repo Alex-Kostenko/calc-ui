@@ -17,6 +17,7 @@ const Result = ({ user }: { user: IUser }) => {
     registrationPercents,
     auctionFee,
     isSublot,
+    exchange,
   } = useAppSelector((state) => state.total);
 
   const dispatch = useAppDispatch();
@@ -72,11 +73,11 @@ const Result = ({ user }: { user: IUser }) => {
   }, [carPrice, auction]);
 
   const calculateRegistration = () => {
-    if (carPrice && registrationPercents) {
+    if (carPrice && registrationPercents && exchange) {
       const percentCopy = [...registrationPercents];
       const value = percentCopy
         .sort((a, b) => b.threshold - a.threshold)
-        .find((value) => carPrice >= value.threshold);
+        .find((value) => carPrice >= value.threshold / exchange.rate);
 
       return value ? Math.round((value.percent / 100) * getDuty() * 10) : 0;
     }
@@ -97,6 +98,13 @@ const Result = ({ user }: { user: IUser }) => {
 
   return (
     <Container className="lg:col-span-2">
+      {exchange?.status === "fail" && (
+        <div className="w-full lg:w-1/2 text-red-500">
+          Не вдалось отримати данні з НБУ. Встановленно курс за замовчуванням
+          42грн. Якщо ця помилка не зникає на протязі довгого часу зверність до
+          системного адміністратора.
+        </div>
+      )}
       <div className="grid !px-0 grid-cols-1 md:grid-cols-2 gap-5  bg-main-gray text-secondary-gray pt-4 rounded">
         <div className="flex flex-col space-y-4 justify-between px-4 [&>p]:flex [&>p]:justify-between">
           <p>
