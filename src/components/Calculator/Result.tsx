@@ -60,7 +60,7 @@ const Result = ({ user }: { user: IUser }) => {
 
       if (!tax) return undefined;
 
-      return Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
+      return Math.round(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
     }
   };
 
@@ -79,7 +79,7 @@ const Result = ({ user }: { user: IUser }) => {
         .sort((a, b) => b.threshold - a.threshold)
         .find((value) => carPrice >= value.threshold);
 
-      return value ? Math.round((value.percent / 100) * carPrice) : 0;
+      return value ? Math.round((value.percent / 100) * getDuty() * 10) : 0;
     }
   };
 
