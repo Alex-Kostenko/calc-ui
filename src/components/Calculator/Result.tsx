@@ -91,6 +91,11 @@ const Result = ({ user }: { user: IUser }) => {
     );
   };
 
+  const getLocationPrice = () => {
+    if (!carType || !location) return undefined;
+    return location.price_by_type.find((p) => p.name === carType.name)?.price;
+  };
+
   return (
     <Container className="lg:col-span-2">
       <div className="grid !px-0 grid-cols-1 md:grid-cols-2 gap-5  bg-main-gray text-secondary-gray pt-4 rounded">
@@ -112,8 +117,8 @@ const Result = ({ user }: { user: IUser }) => {
           <p>
             Доставка до порту:{" "}
             <span>
-              {calculate(location?.price, "portDelivery") &&
-                "$" + calculate(location?.price, "portDelivery")}
+              {calculate(getLocationPrice(), "portDelivery") &&
+                "$" + calculate(getLocationPrice(), "portDelivery")}
             </span>
           </p>
           <p>
@@ -231,7 +236,7 @@ const Result = ({ user }: { user: IUser }) => {
             carPrice,
             calculate(auctionFee, "auctionFee"),
             calculate(getInsurance(), "insurance"),
-            calculate(location?.price, "portDelivery"),
+            calculate(getLocationPrice(), "portDelivery"),
             calculate(
               fuelType === "electric" ? getExciseElectric() : getExcise(),
               "excise"
