@@ -8,6 +8,11 @@ export interface ICarType extends IEntity {
   packImage: IImage;
 }
 
+export interface ICarPrice {
+  name: TCarTypes;
+  price: number;
+}
+
 export type TCarTypes =
   | "minivan"
   | "sedan"
