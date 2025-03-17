@@ -54,18 +54,11 @@ const Result = ({ user }: { user: IUser }) => {
         return undefined;
       }
 
-      const index = taxes.findIndex((tax) => tax.threshold >= carPrice);
+      const sortedTaxes = [...taxes].sort((a, b) => b.threshold - a.threshold);
 
-      if (index && index > 0) {
-        const tax = taxes[index - 1];
+      const tax = sortedTaxes.find((tax) => tax.threshold <= carPrice);
 
-        return Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
-      } else if (index && index === 0) {
-        const tax = taxes[index];
-        return Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
-      }
-
-      const tax = taxes[taxes?.length - 1];
+      if (!tax) return undefined;
 
       return Math.floor(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
     }
