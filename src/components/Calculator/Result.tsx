@@ -46,7 +46,7 @@ const Result = ({ user }: { user: IUser }) => {
   }
 
   const calculateFee = () => {
-    if (carPrice && location?.auctions) {
+    if (carPrice && auction) {
       const taxes = auction?.auction_tax.tax;
 
       if (!taxes) {
