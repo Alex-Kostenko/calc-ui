@@ -6,6 +6,12 @@ import { BrowserRouter } from "react-router-dom";
 import { store } from "@store/store.ts";
 import { Provider } from "react-redux";
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js").then(() => {
+    console.log("Service Worker Registered");
+  });
+}
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
