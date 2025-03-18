@@ -25,6 +25,7 @@ const Year = () => {
       <h3>Рік:</h3>
       <Select
         isSearchable
+        isClearable
         placeholder="Рік"
         onChange={handleSelect}
         options={options}
