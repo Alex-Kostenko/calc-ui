@@ -18,6 +18,8 @@ const Result = ({ user }: { user: IUser }) => {
     auctionFee,
     isSublot,
     exchange,
+    additionalFee,
+    auctionBids,
   } = useAppSelector((state) => state.total);
 
   const dispatch = useAppDispatch();
@@ -47,10 +49,32 @@ const Result = ({ user }: { user: IUser }) => {
   }
 
   const calculateFee = () => {
-    if (carPrice && auction) {
-      const taxes = auction?.auction_tax.tax;
+    if (carPrice && auction && additionalFee) {
+      const bid = (() => {
+        if (!carPrice || !auctionBids) return undefined;
 
+        const bids = [...auctionBids].sort((a, b) => b.amount - a.amount);
+        if (!bids) {
+          console.log("no bids");
+
+          return undefined;
+        }
+
+        const currentBid = bids.find((b) => b.amount <= carPrice);
+
+        if (!currentBid) {
+          console.log("no bid");
+
+          return undefined;
+        }
+
+        return currentBid.bid;
+      })();
+
+      const taxes = auction?.auction_tax.tax;
       if (!taxes) {
+        console.log("no taxes");
+
         return undefined;
       }
 
@@ -58,9 +82,13 @@ const Result = ({ user }: { user: IUser }) => {
 
       const tax = sortedTaxes.find((tax) => tax.threshold <= carPrice);
 
-      if (!tax) return undefined;
+      if (!tax || bid === undefined) {
+        return undefined;
+      }
 
-      return Math.round(tax.tax * (tax.is_percent ? carPrice / 100 : 1));
+      return Math.round(
+        tax.tax * (tax.is_percent ? carPrice / 100 : 1) + additionalFee + bid
+      );
     }
   };
 
