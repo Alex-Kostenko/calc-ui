@@ -24,6 +24,7 @@
 .ant-btn-color-primary,
 .ant-btn-variant-solid {
   font-size: 16px !important;
+  border-radius: 4px;
 }
 
 h3 {
