@@ -107,7 +107,9 @@ const Result = ({ user }: { user: IUser }) => {
         .sort((a, b) => b.threshold - a.threshold)
         .find((value) => carPrice >= value.threshold / exchange.rate);
 
-      return value ? Math.round((value.percent / 100) * getDuty() * 10) : 0;
+      return value
+        ? Math.round((value.percent / 100) * getDuty() * 10 + 31)
+        : 0;
     }
   };
 
@@ -233,8 +235,7 @@ const Result = ({ user }: { user: IUser }) => {
           <p>
             Доставка до міста Львів:{" "}
             <span>
-              {!!carPrice &&
-                "$" + calculate(consts?.cityDelivery, "cityDelivery")}
+              {!!carPrice && "$" + calculate(carType?.price, "cityDelivery")}
             </span>
           </p>
           <p>
@@ -265,7 +266,7 @@ const Result = ({ user }: { user: IUser }) => {
           {sum([
             calculate(consts?.broker, "broker"),
             calculate(consts?.certification, "certification"),
-            calculate(consts?.cityDelivery, "cityDelivery"),
+            calculate(carType?.price, "cityDelivery"),
             calculate(consts?.companyService, "companyServices"),
             calculate(consts?.expedition, "expedition"),
             carPrice,
