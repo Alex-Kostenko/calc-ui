@@ -1,12 +1,13 @@
-import { Select } from "antd";
 import Container from "../Container";
 import { useAppDispatch } from "@/hooks";
 import { setAll } from "@/store/slices/total.slice";
+import Select from "react-select";
+import { ISelectOnChangeValue, ISelectOption } from "@/interfaces";
 
 const Year = () => {
   const startYear = 1990;
   const selectLength = new Date().getFullYear() - startYear + 1;
-  const options = Array.from({ length: selectLength })
+  const options: ISelectOption<number>[] = Array.from({ length: selectLength })
     .map((_, i) => ({
       label: String(startYear + i),
       value: startYear + i,
@@ -15,18 +16,17 @@ const Year = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleSelect = (value: number) => {
-    dispatch(setAll({ carYear: value }));
+  const handleSelect = (value: ISelectOnChangeValue<number>) => {
+    dispatch(setAll({ carYear: value?.value! }));
   };
 
   return (
     <Container>
       <h3>Рік:</h3>
       <Select
-        showSearch
+        isSearchable
         placeholder="Рік"
-        optionFilterProp="label"
-        onSelect={handleSelect}
+        onChange={handleSelect}
         options={options}
       />
     </Container>
