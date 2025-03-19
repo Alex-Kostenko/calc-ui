@@ -236,6 +236,11 @@ const Result = ({ user }: { user: IUser }) => {
               {!!carPrice && "$" + calculate(consts?.expedition, "expedition")}
             </span>
           </p>
+
+          <p>
+            Фінансова гарантія
+            <span>{fuelType === "electric" && consts?.finGuarantee}</span>
+          </p>
           <p>
             Доставка до міста Львів:{" "}
             <span>
@@ -295,6 +300,7 @@ const Result = ({ user }: { user: IUser }) => {
             fuelType === "electric" || fuelType === "hybrid"
               ? consts?.dangerousGoods
               : 0,
+            fuelType === "electric" ? consts?.finGuarantee : 0,
           ])}
         </div>
       </div>
