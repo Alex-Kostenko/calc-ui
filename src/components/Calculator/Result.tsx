@@ -101,14 +101,18 @@ const Result = ({ user }: { user: IUser }) => {
   }, [carPrice, auction]);
 
   const calculateRegistration = () => {
-    if (carPrice && registrationPercents && exchange) {
+    if (carPrice && registrationPercents && exchange && fuelType) {
       const percentCopy = [...registrationPercents];
       const value = percentCopy
         .sort((a, b) => b.threshold - a.threshold)
         .find((value) => carPrice >= value.threshold / exchange.rate);
 
       return value
-        ? Math.round((value.percent / 100) * getDuty() * 10 + 31)
+        ? Math.round(
+            (value.percent / 100) *
+              (fuelType !== "electric" ? getDuty() * 10 : getDutyElectric()) +
+              31
+          )
         : 0;
     }
   };
