@@ -237,10 +237,12 @@ const Result = ({ user }: { user: IUser }) => {
             </span>
           </p>
 
-          <p>
-            Фінансова гарантія
-            <span>{fuelType === "electric" && consts?.finGuarantee}</span>
-          </p>
+          {fuelType === "electric" && (
+            <p>
+              Фінансова гарантія
+              <span>{consts?.finGuarantee}</span>
+            </p>
+          )}
           <p>
             Доставка до міста Львів:{" "}
             <span>
