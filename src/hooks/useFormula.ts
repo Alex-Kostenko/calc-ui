@@ -57,7 +57,7 @@ export function useFormula(name: string, user: IUser) {
 
     if (!coef) return value;
 
-    return coef.isPercent ? value * coef.value : value + coef.value;
+    return coef.isPercent ? (value * coef.value) / 100 : value + coef.value;
   }
 
   const formula =

@@ -45,7 +45,7 @@ const Result = ({ user }: { user: IUser }) => {
 
     if (!coef) return value;
 
-    return coef.isPercent ? value * coef.value : value + coef.value;
+    return coef.isPercent ? (value * coef.value) / 100 : value + coef.value;
   }
 
   const calculateFee = () => {
@@ -55,16 +55,12 @@ const Result = ({ user }: { user: IUser }) => {
 
         const bids = [...auctionBids].sort((a, b) => b.amount - a.amount);
         if (!bids) {
-          console.log("no bids");
-
           return undefined;
         }
 
         const currentBid = bids.find((b) => b.amount <= carPrice);
 
         if (!currentBid) {
-          console.log("no bid");
-
           return undefined;
         }
 
@@ -73,8 +69,6 @@ const Result = ({ user }: { user: IUser }) => {
 
       const taxes = auction?.auction_tax.tax;
       if (!taxes) {
-        console.log("no taxes");
-
         return undefined;
       }
 
@@ -107,10 +101,16 @@ const Result = ({ user }: { user: IUser }) => {
         .sort((a, b) => b.threshold - a.threshold)
         .find((value) => carPrice >= value.threshold / exchange.rate);
 
+      const duty = calculate(getDuty(), "duty");
+
+      if (!duty) {
+        return 0;
+      }
+
       return value
         ? Math.round(
             (value.percent / 100) *
-              (fuelType !== "electric" ? getDuty() * 10 : getDutyElectric()) +
+              (fuelType !== "electric" ? duty * 10 : getDutyElectric()) +
               31
           )
         : 0;
