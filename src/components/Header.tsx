@@ -15,7 +15,7 @@ const Header = ({ buttonName, href, onClick }: Props) => {
     <header>
       <nav className="h-0 container mx-auto">
         <div className="gap-5 absolute z-50  top-8 -translate-x-[116%] left-full flex items-center w-fit px-4 md:px-6 lg:px-8">
-          <div className="bg-white px-4 py-1.5 rounded-md shadow-md text-nowrap border border-transparent">
+          <div className="bg-black/50 text-white px-4 py-1.5 shadow-md text-nowrap border border-transparent">
             Привіт, {user && user.username}
           </div>
           <Button onClick={onClick} size="large" className="shadow-md">
