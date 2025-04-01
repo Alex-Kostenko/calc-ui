@@ -97,15 +97,13 @@ const Result = ({ user }: { user: IUser }) => {
   const calculateRegistration = () => {
     if (carPrice && registrationPercents && exchange && fuelType) {
       const percentCopy = [...registrationPercents];
-      const value = percentCopy
-        .sort((a, b) => b.threshold - a.threshold)
-        .find((value) => carPrice >= value.threshold / exchange.rate);
-
       const duty = calculate(getDuty(), "duty");
-
       if (!duty) {
         return 0;
       }
+      const value = percentCopy
+        .sort((a, b) => b.threshold - a.threshold)
+        .find((value) => duty * 10 >= value.threshold / exchange.rate);
 
       return value
         ? Math.round(
