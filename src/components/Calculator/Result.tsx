@@ -238,7 +238,7 @@ const Result = ({ user }: { user: IUser }) => {
           {fuelType === "electric" && (
             <p>
               Фінансова гарантія
-              <span>{consts?.finGuarantee}</span>
+              <span>${consts?.finGuarantee}</span>
             </p>
           )}
           <p>
