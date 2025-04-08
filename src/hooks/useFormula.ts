@@ -27,7 +27,8 @@ export function useFormula(name: string, user: IUser) {
   const ui = {
     year: () => {
       const year = carYear && new Date().getFullYear() - carYear;
-      if (!year) return year;
+      if (year === undefined) return year;
+      if (year === 0 || year === 1) return 1;
       return year > 15 ? 15 : year - 1;
     },
     fuel: () => {
